@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.Hardware;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -48,12 +49,15 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
+
 @TeleOp(name="Pushbot: Teleop POV", group="Pushbot")
 //@Disabled
 public class betaBotArcade extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwarePushbot robot           = new HardwarePushbot();   // Use a Pushbot's hardware
+    HardwarePushbot robot           = new HardwarePushbot();
+    double clawOffset=0;
+    final double    CLAW_SPEED      = 0.02 ;                   // sets rate to move servo
 
     @Override
     public void runOpMode() {
@@ -81,8 +85,24 @@ public class betaBotArcade extends LinearOpMode {
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
-            drive = -gamepad1.left_stick_y;
-            turn  =  gamepad1.right_stick_x;
+            double y = -gamepad1.left_stick_y;
+
+            if (y > 0) {
+                y = y * y;
+            } else {
+                y = -y * y;
+            }
+
+            double x=gamepad1.right_stick_x;
+
+            if(x<0){
+                x=x*x;
+            } else{
+                x=-x*x;
+            }
+            
+            drive = -y;
+            turn  =  x;
 
             // Combine drive and turn for blended motion.
             left  = drive + turn;
@@ -96,11 +116,39 @@ public class betaBotArcade extends LinearOpMode {
                 right /= max;
             }
 
+
             // Output the safe vales to the motor drives.
             robot.frontLeftDrive.setPower(left);
             robot.frontRightDrive.setPower(right);
             robot.backRightDrive.setPower(right);
             robot.backLeftDrive.setPower (left);
+
+
+
+            // Move both servos to new position.  Assume servos are mirror image of each other.
+            clawOffset = Range.clip(clawOffset, -0.5, 0.5);
+            robot.frontLeftClaw.setPosition(robot.MID_SERVO + clawOffset);
+            robot.frontRightClaw.setPosition(robot.MID_SERVO - clawOffset);
+
+            // Use gamepad buttons to move arm up (Y) and down (A)
+            //if (gamepad1.y)
+         //       robot.frontLeftClaw.setPower(robot.ARM_UP_POWER);
+          //  else if (gamepad1.a)
+          //      robot.frontRightClaw.setPower(robot.ARM_DOWN_POWER);
+          //  else
+          //      robot.frontLeftClaw.setPower(0.0);
+
+            // Use gamepad left & right Bumpers to open and close the claw
+            if (gamepad1.right_bumper)
+                clawOffset += CLAW_SPEED;
+            else if (gamepad1.left_bumper)
+                clawOffset -= CLAW_SPEED;
+
+            // Send telemetry message to signify robot running;
+            telemetry.addData("claw",  "Offset = %.2f", clawOffset);
+            telemetry.addData("left",  "%.2f", left);
+            telemetry.addData("right", "%.2f", right);
+            telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.
             sleep(50);

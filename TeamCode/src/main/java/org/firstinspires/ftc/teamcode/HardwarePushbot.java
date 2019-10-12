@@ -58,11 +58,15 @@ public class HardwarePushbot
     public DcMotor  backRightDrive= null;
     public DcMotor  frontLeftDrive=  null;
     public DcMotor  backLeftDrive=  null;
+    public Servo frontLeftClaw= null;
+    public Servo frontRightClaw= null;
 
+    public static final double ARM_UP_POWER    =  0.45 ;
+    public static final double ARM_DOWN_POWER  = -0.45 ;
+    public static final double MID_SERVO = 0.5;
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
-
     /* Constructor */
     public HardwarePushbot(){
 
@@ -96,6 +100,14 @@ public class HardwarePushbot
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        // Define and initialize ALL installed servos.
+        frontLeftClaw  = hwMap.get(Servo.class, "left_front_claw");
+        frontLeftClaw = hwMap.get(Servo.class, "right_front_claw");
+        frontLeftClaw.setPosition(MID_SERVO);
+        frontLeftClaw.setPosition(MID_SERVO);
+
     }
- }
+    }
+
 
