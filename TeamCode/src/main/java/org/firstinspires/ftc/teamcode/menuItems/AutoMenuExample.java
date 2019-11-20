@@ -50,7 +50,7 @@ public class AutoMenuExample extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        autonomousController = new AutonomousController("Auto Menu Example");
+        autonomousController = new AutonomousController("Auto Menu Example", telemetry, gamepad1, gamepad2);
 
         autonomousController.initOpMode();
 

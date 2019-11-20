@@ -51,12 +51,9 @@ public class TeleopMenuExample extends LinearOpMode {
     /* Declare OpMode members. */
     TeleopController teleopController;
 
-    public static Telemetry telem;
-
     @Override
     public void runOpMode() {
-        teleopController = new TeleopController("Teleop Menu Example");
-        telem = new TelemetryImpl(this);
+        teleopController = new TeleopController("Teleop Menu Example", telemetry, gamepad1, gamepad2);
 
         teleopController.initOpMode();
 

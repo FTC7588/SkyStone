@@ -8,12 +8,15 @@ import org.firstinspires.ftc.teamcode.menuItems.TeleopMenuExample;
 
 public class ExampleSubsystem {
 
-    public ExampleSubsystem() {
+    Telemetry telemetry;
+
+    public ExampleSubsystem(Telemetry telem) {
+        telemetry = telem;
     }
 
     public void sendTelemetry(String telemetryData, String telemetryData2) {
-        TeleopMenuExample.telem.addData("ab","4");
+        telemetry.addData("ab","4");
         //telemetry.addData(telemetryData, telemetryData2);
-        TeleopMenuExample.telem.update();
+        telemetry.update();
     }
 }

@@ -29,6 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 /**
  * This file controls the timing of Robot.java methods during auto using data from menu classes.
  */
@@ -37,9 +41,11 @@ public class TeleopController {
 
     /* Declare OpMode members. */
     Robot robotController;
+    IO io;
 
-    public TeleopController(String callerName) {
-        robotController = new Robot(callerName);
+    public TeleopController(String callerName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2) {
+        robotController = new Robot(callerName, telem);
+        io = new IO(gamepad1, gamepad2);
     }
 
     public void initOpMode() {
