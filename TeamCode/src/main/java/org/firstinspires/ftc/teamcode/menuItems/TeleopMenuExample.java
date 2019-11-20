@@ -32,6 +32,9 @@ package org.firstinspires.ftc.teamcode.menuItems;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
 import org.firstinspires.ftc.teamcode.TeleopController;
 
 /**
@@ -42,15 +45,18 @@ import org.firstinspires.ftc.teamcode.TeleopController;
  */
 
 @TeleOp(name="Teleop Menu Example", group="Menu Example")
-@Disabled
+//@Disabled
 public class TeleopMenuExample extends LinearOpMode {
 
     /* Declare OpMode members. */
     TeleopController teleopController;
 
+    public static Telemetry telem;
+
     @Override
     public void runOpMode() {
         teleopController = new TeleopController("Teleop Menu Example");
+        telem = new TelemetryImpl(this);
 
         teleopController.initOpMode();
 

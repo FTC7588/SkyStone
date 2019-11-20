@@ -1,24 +1,24 @@
 package org.firstinspires.ftc.teamcode.commands;
 
-import org.firstinspires.ftc.teamcode.subsystems.exampleSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.ExampleSubsystem;
 
 public class exampleCommand {
 
-    exampleSubsystem exampleSubsystem;
+    ExampleSubsystem exampleSubsystem;
 
     public exampleCommand() {
-
+        exampleSubsystem = new ExampleSubsystem();
     }
 
     public void init(){
-        exampleSubsystem.sendTelemetry("exampleCommand Inited!");
+        exampleSubsystem.sendTelemetry("exampleCommand Init-ed!", "A");
     }
 
     public void execute() {
-        exampleSubsystem.sendTelemetry("exampleCommand Executed!");
+        exampleSubsystem.sendTelemetry("exampleCommand Executed!", "a");
     }
 
     public void stop() {
-        exampleSubsystem.sendTelemetry("exampleCommand Stopped!");
+        exampleSubsystem.sendTelemetry("exampleCommand Stopped!", "v");
     }
 }
