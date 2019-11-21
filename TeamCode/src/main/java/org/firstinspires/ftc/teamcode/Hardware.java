@@ -79,35 +79,43 @@ public class Hardware
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        //backRightDrive  = hwMap.get(DcMotor.class, "backRightDrive");
-        //backLeftDrive  = hwMap.get(DcMotor.class, "backLeftDrive");
-        //frontRightDrive = hwMap.get(DcMotor.class, "frontRightDrive");
-        //frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
+        backRightDrive  = hwMap.get(DcMotor.class, "backRightDrive");
+        backLeftDrive  = hwMap.get(DcMotor.class, "backLeftDrive");
+        frontRightDrive = hwMap.get(DcMotor.class, "frontRightDrive");
+        frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
 
         shuttleDrive = hwMap.get(DcMotor.class, "shuttleDrive");
 
-        //frontLeftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        //frontRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        ///backRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        //backLeftDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        frontRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        backRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         shuttleDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
-        //frontLeftDrive.setPower(0);
-        //frontRightDrive.setPower(0);
-        //backRightDrive.setPower(0);
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
 
         shuttleDrive.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        // backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         shuttleDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        shuttleDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Define and initialize ALL installed servos.
         //frontLeftClaw  = hwMap.get(Servo.class, "left_front_claw");
