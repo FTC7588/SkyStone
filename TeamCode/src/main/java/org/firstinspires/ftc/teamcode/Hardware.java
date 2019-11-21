@@ -51,15 +51,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class HardwarePushbot
+public class Hardware
 {
     /* Public OpMode members. */
-    public DcMotor  frontRightDrive= null;
-    public DcMotor  backRightDrive= null;
-    public DcMotor  frontLeftDrive=  null;
-    public DcMotor  backLeftDrive=  null;
-    public Servo frontLeftClaw= null;
-    public Servo frontRightClaw= null;
+    public DcMotor  frontRightDrive = null;
+    public DcMotor  backRightDrive = null;
+    public DcMotor  frontLeftDrive =  null;
+    public DcMotor  backLeftDrive =  null;
+    public DcMotor  shuttleDrive =  null;
+    public Servo frontLeftClaw = null;
+    public Servo frontRightClaw = null;
 
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
@@ -68,7 +69,7 @@ public class HardwarePushbot
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
     /* Constructor */
-    public HardwarePushbot(){
+    public Hardware(){
 
     }
 
@@ -78,34 +79,41 @@ public class HardwarePushbot
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        backRightDrive  = hwMap.get(DcMotor.class, "backRightDrive");
-        backLeftDrive  = hwMap.get(DcMotor.class, "backLeftDrive");
-        frontRightDrive = hwMap.get(DcMotor.class, "frontRightDrive");
-        frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
+        //backRightDrive  = hwMap.get(DcMotor.class, "backRightDrive");
+        //backLeftDrive  = hwMap.get(DcMotor.class, "backLeftDrive");
+        //frontRightDrive = hwMap.get(DcMotor.class, "frontRightDrive");
+        //frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
 
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        frontRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        backRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        shuttleDrive = hwMap.get(DcMotor.class, "shuttleDrive");
+
+        //frontLeftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        //frontRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        ///backRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        //backLeftDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+
+        shuttleDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
-        frontLeftDrive.setPower(0);
-        frontRightDrive.setPower(0);
-        backRightDrive.setPower(0);
-        backLeftDrive.setPower(0);
+        //frontLeftDrive.setPower(0);
+        //frontRightDrive.setPower(0);
+        //backRightDrive.setPower(0);
+
+        shuttleDrive.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        shuttleDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        frontLeftClaw  = hwMap.get(Servo.class, "left_front_claw");
-        frontLeftClaw = hwMap.get(Servo.class, "right_front_claw");
-        frontLeftClaw.setPosition(MID_SERVO);
-        frontLeftClaw.setPosition(MID_SERVO);
+        //frontLeftClaw  = hwMap.get(Servo.class, "left_front_claw");
+        //frontLeftClaw = hwMap.get(Servo.class, "right_front_claw");
+        //frontLeftClaw.setPosition(MID_SERVO);
+        //frontLeftClaw.setPosition(MID_SERVO);
 
     }
     }

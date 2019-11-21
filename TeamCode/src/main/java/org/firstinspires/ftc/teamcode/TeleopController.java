@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -41,11 +42,9 @@ public class TeleopController {
 
     /* Declare OpMode members. */
     Robot robotController;
-    IO io;
 
-    public TeleopController(String callerName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2) {
-        robotController = new Robot(callerName, telem);
-        io = new IO(gamepad1, gamepad2);
+    public TeleopController(String callerName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2, HardwareMap hwmap) {
+        robotController = new Robot(callerName, telem, hwmap, gamepad1, gamepad2);
     }
 
     public void initOpMode() {

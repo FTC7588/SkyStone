@@ -29,33 +29,40 @@
 
 package org.firstinspires.ftc.teamcode.menuItems;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.AutonomousController;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.TeleopController;
 
 /**
  * This file illustrates the basic construction of a class to add an item to the driver station menu.
  *
  * Copy this file in android studio, then comment out the @Disabled line and change the name and
- * AutonmousController constructor string to reflect the human and ccde names of your opmode reflectively.
+ * TeleopController constructor string to reflect the human and ccde names of your opmode reflectively.
  */
 
-@Autonomous(name="Auto Menu Example", group="Menu Example")
-@Disabled
-public class AutoMenuExample extends LinearOpMode {
+@TeleOp(name="Teleop", group="Teleop")
+//@Disabled
+public class TeleopMenu extends LinearOpMode {
 
     /* Declare OpMode members. */
-    AutonomousController autonomousController;
+    TeleopController teleopController;
 
     @Override
     public void runOpMode() {
-        autonomousController = new AutonomousController("Auto Menu Example", telemetry, gamepad1, gamepad2, hardwareMap);
+        teleopController = new TeleopController("Teleop", telemetry, gamepad1, gamepad2, hardwareMap);
 
-        autonomousController.initOpMode();
+        teleopController.initOpMode();
 
-        autonomousController.runOpMode();
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
 
-        autonomousController.stopOpMode();
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+            teleopController.runOpMode();
+        }
+
+        teleopController.stopOpMode();
     }
 }

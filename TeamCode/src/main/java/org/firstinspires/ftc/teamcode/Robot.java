@@ -1,17 +1,24 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.commands.exampleCommand;
+import org.firstinspires.ftc.teamcode.commands.ShuttleTeleopCommand;
 
 public class Robot {
     String programName;
 
-    exampleCommand exampleCommand;
+    ShuttleTeleopCommand shuttleTeleopCommand;
 
-    public Robot(String callerName, Telemetry telem) {
+    IO io;
+
+    public Robot(String callerName, Telemetry telem, HardwareMap hwmap, Gamepad gamepad1, Gamepad gamepad2) {
         programName = callerName;
 
-        exampleCommand = new exampleCommand(telem);
+        io = new IO(gamepad1, gamepad2);
+
+        shuttleTeleopCommand = new ShuttleTeleopCommand(telem, hwmap, io);
     }
 
     public void autoInit() {
@@ -27,14 +34,14 @@ public class Robot {
     }
 
     public  void teleopInit() {
-        exampleCommand.init();
+        shuttleTeleopCommand.init();
     }
 
     public void teleopExecute() {
-        exampleCommand.execute();
+        shuttleTeleopCommand.execute();
     }
 
     public void teleopEnd() {
-        exampleCommand.stop();
+        shuttleTeleopCommand.stop();
     }
 }
