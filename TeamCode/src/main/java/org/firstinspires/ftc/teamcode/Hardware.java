@@ -63,6 +63,8 @@ public class Hardware
     public DcMotor  elevatorLeft = null;
     public Servo frontLeftClaw = null;
     public Servo frontRightClaw = null;
+    public Servo foundationGrabberLeft = null;
+    public Servo foundationGrabberRight = null;
 
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
@@ -128,10 +130,10 @@ public class Hardware
         shuttleDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Define and initialize ALL installed servos.
-        //frontLeftClaw  = hwMap.get(Servo.class, "left_front_claw");
-        //frontLeftClaw = hwMap.get(Servo.class, "right_front_claw");
-        //frontLeftClaw.setPosition(MID_SERVO);
-        //frontLeftClaw.setPosition(MID_SERVO);
+        foundationGrabberLeft  = hwMap.get(Servo.class, "foundationLeft");
+        foundationGrabberRight = hwMap.get(Servo.class, "foundationRight");
+        foundationGrabberLeft.setPosition(MID_SERVO);
+        foundationGrabberRight.setPosition(MID_SERVO);
 
     }
     }

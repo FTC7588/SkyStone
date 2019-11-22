@@ -34,4 +34,9 @@ public class IO {
 
         return power;
     }
+    public boolean foundationGrabber() {
+
+
+        return gamepad2.b;
+    }
 }

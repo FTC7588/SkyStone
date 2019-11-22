@@ -6,7 +6,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.DriveTrainTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.ElevatorTeleopCommand;
+import org.firstinspires.ftc.teamcode.commands.FoundationMoverCommand;
 import org.firstinspires.ftc.teamcode.commands.ShuttleTeleopCommand;
+import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
 
 public class Robot {
     String programName;
@@ -14,6 +16,7 @@ public class Robot {
     ShuttleTeleopCommand shuttleTeleopCommand;
     DriveTrainTeleopCommand driveTrainTeleopCommand;
     ElevatorTeleopCommand elevatorTeleopCommand;
+    FoundationMoverCommand foundationMoverCommand;
 
     IO io;
 
@@ -25,6 +28,7 @@ public class Robot {
         shuttleTeleopCommand = new ShuttleTeleopCommand(telem, hwmap, io);
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, hwmap, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, hwmap, io);
+        foundationMoverCommand = new FoundationMoverCommand(telem, hwmap, io);
     }
 
     public void autoInit() {
@@ -43,17 +47,20 @@ public class Robot {
         shuttleTeleopCommand.init();
         driveTrainTeleopCommand.init();
         elevatorTeleopCommand.init();
+        foundationMoverCommand.init();
     }
 
     public void teleopExecute() {
         shuttleTeleopCommand.execute();
         driveTrainTeleopCommand.execute();
         elevatorTeleopCommand.execute();
+        foundationMoverCommand.execute();
     }
 
     public void teleopEnd() {
         shuttleTeleopCommand.stop();
         driveTrainTeleopCommand.stop();
         elevatorTeleopCommand.stop();
+        foundationMoverCommand.stop();
     }
 }
