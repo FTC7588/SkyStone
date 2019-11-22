@@ -59,6 +59,8 @@ public class Hardware
     public DcMotor  frontLeftDrive =  null;
     public DcMotor  backLeftDrive =  null;
     public DcMotor  shuttleDrive =  null;
+    public DcMotor  elevatorRight = null;
+    public DcMotor  elevatorLeft = null;
     public Servo frontLeftClaw = null;
     public Servo frontRightClaw = null;
 
@@ -83,6 +85,9 @@ public class Hardware
         backLeftDrive  = hwMap.get(DcMotor.class, "backLeftDrive");
         frontRightDrive = hwMap.get(DcMotor.class, "frontRightDrive");
         frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
+        elevatorLeft   = hwMap.get(DcMotor.class, "elevatorLeft");
+        elevatorRight  = hwMap.get(DcMotor.class, "elevatorRight");
+
 
         shuttleDrive = hwMap.get(DcMotor.class, "shuttleDrive");
 
@@ -90,6 +95,8 @@ public class Hardware
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         backRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        elevatorLeft.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        elevatorRight.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
 
         shuttleDrive.setDirection(DcMotor.Direction.REVERSE);
 
@@ -100,6 +107,8 @@ public class Hardware
         backLeftDrive.setPower(0);
 
         shuttleDrive.setPower(0);
+        elevatorRight.setPower(0);
+        elevatorLeft.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -107,7 +116,8 @@ public class Hardware
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        elevatorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elevatorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         shuttleDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

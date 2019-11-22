@@ -29,4 +29,9 @@ public class IO {
 
         return power;
     }
+    public double elevator() {
+        double power = gamepad2.left_stick_y;
+
+        return power;
+    }
 }
