@@ -36,11 +36,8 @@ public class Robot {
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, hwmap, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, hwmap, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, hwmap, io);
-<<<<<<< HEAD
         testAutoCommand = new TestAutoCommand(telem, hwmap, io);
-=======
         grabberCommand = new GrabberCommand(telem, hwmap, io);
->>>>>>> 106c4eaee7a4e45e8849dcb153dfdf2149d37879
     }
 
     public void autoInit() {
