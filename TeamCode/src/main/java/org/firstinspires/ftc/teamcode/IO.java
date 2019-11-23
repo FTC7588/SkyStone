@@ -29,24 +29,30 @@ public class IO {
 
         return power;
     }
+
     public double elevator() {
         double power = gamepad2.left_stick_y;
 
         return power;
     }
+
     public boolean foundationGrabber() {
-
-
         return gamepad2.b;
     }
 
     public boolean bigGrabberToggle() {
-
-
-        return gamepad2.right_bumper;
+        return gamepad2.x;
     }
 
     public boolean smallGrabberToggle() {
-        return gamepad2.left_bumper;
+        return gamepad2.y;
+    }
+
+    public boolean rotGrabberLeft() {
+        return gamepad2.y;
+    }
+
+    public boolean rotGrabberRight() {
+        return gamepad2.y;
     }
 }
