@@ -39,4 +39,14 @@ public class IO {
 
         return gamepad2.b;
     }
+
+    public boolean bigGrabberToggle() {
+
+
+        return gamepad2.right_bumper;
+    }
+
+    public boolean smallGrabberToggle() {
+        return gamepad2.left_bumper;
+    }
 }

@@ -65,6 +65,8 @@ public class Hardware
     public Servo frontRightClaw = null;
     public Servo foundationGrabberLeft = null;
     public Servo foundationGrabberRight = null;
+    public Servo grabberBig = null;
+    public Servo grabberSmall = null;
 
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
@@ -89,6 +91,7 @@ public class Hardware
         frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
         elevatorLeft   = hwMap.get(DcMotor.class, "elevatorLeft");
         elevatorRight  = hwMap.get(DcMotor.class, "elevatorRight");
+
 
 
         shuttleDrive = hwMap.get(DcMotor.class, "shuttleDrive");
@@ -132,8 +135,11 @@ public class Hardware
         // Define and initialize ALL installed servos.
         foundationGrabberLeft  = hwMap.get(Servo.class, "foundationLeft");
         foundationGrabberRight = hwMap.get(Servo.class, "foundationRight");
+        grabberBig = hwMap.get(Servo.class, "grabberBig");
         foundationGrabberLeft.setPosition(MID_SERVO);
         foundationGrabberRight.setPosition(MID_SERVO);
+        grabberBig.setPosition(MID_SERVO);
+        grabberSmall.setPosition(MID_SERVO);
 
     }
     }

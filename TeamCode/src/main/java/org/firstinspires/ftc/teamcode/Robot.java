@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.DriveTrainTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.ElevatorTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.FoundationMoverCommand;
+import org.firstinspires.ftc.teamcode.commands.GrabberCommand;
 import org.firstinspires.ftc.teamcode.commands.ShuttleTeleopCommand;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
 
@@ -17,6 +18,7 @@ public class Robot {
     DriveTrainTeleopCommand driveTrainTeleopCommand;
     ElevatorTeleopCommand elevatorTeleopCommand;
     FoundationMoverCommand foundationMoverCommand;
+    GrabberCommand grabberCommand;
 
     IO io;
 
@@ -29,6 +31,7 @@ public class Robot {
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, hwmap, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, hwmap, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, hwmap, io);
+        grabberCommand = new GrabberCommand(telem, hwmap, io);
     }
 
     public void autoInit() {
@@ -48,6 +51,7 @@ public class Robot {
         driveTrainTeleopCommand.init();
         elevatorTeleopCommand.init();
         foundationMoverCommand.init();
+        grabberCommand.init();
     }
 
     public void teleopExecute() {
@@ -55,6 +59,7 @@ public class Robot {
         driveTrainTeleopCommand.execute();
         elevatorTeleopCommand.execute();
         foundationMoverCommand.execute();
+        grabberCommand.execute();
     }
 
     public void teleopEnd() {
@@ -62,5 +67,7 @@ public class Robot {
         driveTrainTeleopCommand.stop();
         elevatorTeleopCommand.stop();
         foundationMoverCommand.stop();
+        grabberCommand.stop();
     }
+
 }
