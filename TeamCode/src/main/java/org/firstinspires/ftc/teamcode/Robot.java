@@ -19,11 +19,11 @@ public class Robot {
     DriveTrainTeleopCommand driveTrainTeleopCommand;
     ElevatorTeleopCommand elevatorTeleopCommand;
     FoundationMoverCommand foundationMoverCommand;
-<<<<<<< HEAD
+
     TestAutoCommand testAutoCommand;
-=======
+
     GrabberCommand grabberCommand;
->>>>>>> 106c4eaee7a4e45e8849dcb153dfdf2149d37879
+
 
     IO io;
 
