@@ -70,6 +70,8 @@ public class Hardware
     public Servo frontRightClaw = null;
     public Servo foundationGrabberLeft = null;
     public Servo foundationGrabberRight = null;
+    public Servo grabberBig = null;
+    public Servo grabberSmall = null;
 
     public BNO055IMU imu;
     public Orientation angles;
@@ -100,6 +102,11 @@ public class Hardware
         elevatorLeft   = hwMap.get(DcMotor.class, "elevatorLeft");
         elevatorRight  = hwMap.get(DcMotor.class, "elevatorRight");
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 106c4eaee7a4e45e8849dcb153dfdf2149d37879
         shuttleDrive = hwMap.get(DcMotor.class, "shuttleDrive");
 
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
@@ -141,8 +148,15 @@ public class Hardware
         // Define and initialize ALL installed servos.
         foundationGrabberLeft  = hwMap.get(Servo.class, "foundationLeft");
         foundationGrabberRight = hwMap.get(Servo.class, "foundationRight");
+        grabberBig = hwMap.get(Servo.class, "grabberBig");
         foundationGrabberLeft.setPosition(MID_SERVO);
         foundationGrabberRight.setPosition(MID_SERVO);
+<<<<<<< HEAD
+=======
+        grabberBig.setPosition(MID_SERVO);
+        grabberSmall.setPosition(MID_SERVO);
+
+>>>>>>> 106c4eaee7a4e45e8849dcb153dfdf2149d37879
     }
 
     public void initGyro() {
