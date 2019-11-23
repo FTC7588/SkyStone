@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.commands.DriveTrainTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.ElevatorTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.FoundationMoverCommand;
 import org.firstinspires.ftc.teamcode.commands.ShuttleTeleopCommand;
+import org.firstinspires.ftc.teamcode.commands.TestAutoCommand;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
 
 public class Robot {
@@ -17,6 +18,7 @@ public class Robot {
     DriveTrainTeleopCommand driveTrainTeleopCommand;
     ElevatorTeleopCommand elevatorTeleopCommand;
     FoundationMoverCommand foundationMoverCommand;
+    TestAutoCommand testAutoCommand;
 
     IO io;
 
@@ -29,6 +31,7 @@ public class Robot {
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, hwmap, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, hwmap, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, hwmap, io);
+        testAutoCommand = new TestAutoCommand(telem, hwmap, io);
     }
 
     public void autoInit() {
@@ -36,7 +39,9 @@ public class Robot {
     }
 
     public void autoExecute() {
-
+        if (programName == "Test Auto"){
+            testAutoCommand.execute();
+        }
     }
 
     public void autoEnd() {

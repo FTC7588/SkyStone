@@ -29,11 +29,16 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
  * This is NOT an opmode.
@@ -66,12 +71,17 @@ public class Hardware
     public Servo foundationGrabberLeft = null;
     public Servo foundationGrabberRight = null;
 
+    public BNO055IMU imu;
+    public Orientation angles;
+    public Acceleration gravity;
+
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
     public static final double MID_SERVO = 0.5;
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
+
     /* Constructor */
     public Hardware(){
 
@@ -89,7 +99,6 @@ public class Hardware
         frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
         elevatorLeft   = hwMap.get(DcMotor.class, "elevatorLeft");
         elevatorRight  = hwMap.get(DcMotor.class, "elevatorRight");
-
 
         shuttleDrive = hwMap.get(DcMotor.class, "shuttleDrive");
 
@@ -134,8 +143,20 @@ public class Hardware
         foundationGrabberRight = hwMap.get(Servo.class, "foundationRight");
         foundationGrabberLeft.setPosition(MID_SERVO);
         foundationGrabberRight.setPosition(MID_SERVO);
+    }
 
+    public void initGyro() {
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        //parameters.calibrationDataFile = "GyroCal.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
     }
-    }
+}
 
 

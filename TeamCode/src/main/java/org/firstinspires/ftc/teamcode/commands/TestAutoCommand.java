@@ -5,28 +5,31 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.IO;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrainSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.ShuttleSubsystem;
 
-public class DriveTrainTeleopCommand {
+public class TestAutoCommand {
 
     DriveTrainSubsystem driveTrainSubsystem;
     IO io;
 
-    public DriveTrainTeleopCommand(Telemetry telem, HardwareMap hwmap, IO io) {
+    public TestAutoCommand(Telemetry telem, HardwareMap hwmap, IO io) {
         driveTrainSubsystem = new DriveTrainSubsystem(telem, hwmap);
 
         this.io = io;
     }
 
     public void init(){
-        driveTrainSubsystem.arcadeDrive(0,0);
+
     }
 
     public void execute() {
-        driveTrainSubsystem.arcadeDrive(io.drive(), -io.turn());
+        driveTrainSubsystem.moveToPosition(30, 0.2);
+
+        driveTrainSubsystem.arc(-45.0, 13.0, 0.2);
+
+        driveTrainSubsystem.arc(45.0, 30.0, 0.2);
     }
 
     public void stop() {
-        driveTrainSubsystem.arcadeDrive(0,0);
+
     }
 }

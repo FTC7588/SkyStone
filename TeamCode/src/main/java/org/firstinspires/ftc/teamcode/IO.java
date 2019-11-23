@@ -19,7 +19,7 @@ public class IO {
     }
 
     public double turn() {
-        double power = gamepad1.left_stick_x;
+        double power = gamepad1.right_stick_x;
 
         return power;
     }
