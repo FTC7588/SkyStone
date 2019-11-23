@@ -13,7 +13,7 @@ public class IO {
     }
 
     public double shuttlePower() {
-        double power = gamepad2.right_stick_y;
+        double power = -gamepad2.right_stick_y;
 
         return power;
     }
@@ -25,13 +25,13 @@ public class IO {
     }
 
     public double drive() {
-        double power = gamepad1.left_stick_y;
+        double power = -gamepad1.left_stick_y;
 
         return power;
     }
 
     public double elevator() {
-        double power = gamepad2.left_stick_y;
+        double power = -gamepad2.left_stick_y;
 
         return power;
     }

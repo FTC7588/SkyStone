@@ -36,12 +36,13 @@ public class Robot {
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, hwmap, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, hwmap, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, hwmap, io);
+
         testAutoCommand = new TestAutoCommand(telem, hwmap, io);
         grabberCommand = new GrabberCommand(telem, hwmap, io);
     }
 
     public void autoInit() {
-
+        testAutoCommand.init();
     }
 
     public void autoExecute() {
@@ -51,7 +52,7 @@ public class Robot {
     }
 
     public void autoEnd() {
-
+        testAutoCommand.stop();
     }
 
     public  void teleopInit() {

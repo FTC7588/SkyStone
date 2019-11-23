@@ -25,7 +25,7 @@ public class DriveTrainSubsystem {
     DcMotor backright;
 
     //Calculate encoder conversion
-    Double width = 16.0; //inches
+    Double width = 18.0; //inches
     Integer cpr = 28; //counts per rotation
     Integer gearratio = 20;
     Double diameter = 4.125;
@@ -66,8 +66,8 @@ public class DriveTrainSubsystem {
        double max;
 
         // Combine drive and turn for blended motion.
-        left  = drive + turn;
-        right = drive - turn;
+        left  = drive - turn;
+        right = drive + turn;
 
         // Normalize the values so neither exceed +/- 1.0
         max = Math.max(Math.abs(left), Math.abs(right));

@@ -43,7 +43,7 @@ import org.firstinspires.ftc.teamcode.AutonomousController;
  */
 
 @Autonomous(name="Test Auto", group="Menu Example")
-@Disabled
+//@Disabled
 public class TestAutoMenu extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -54,6 +54,8 @@ public class TestAutoMenu extends LinearOpMode {
         autonomousController = new AutonomousController("Test Auto", telemetry, gamepad1, gamepad2, hardwareMap);
 
         autonomousController.initOpMode();
+
+        waitForStart();
 
         autonomousController.runOpMode();
 

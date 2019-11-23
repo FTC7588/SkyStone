@@ -105,12 +105,12 @@ public class Hardware
 
         shuttleDrive = hwMap.get(DcMotor.class, "shuttleDrive");
 
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        frontRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        backRightDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        elevatorLeft.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        elevatorRight.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        frontRightDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        elevatorLeft.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        elevatorRight.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
 
         shuttleDrive.setDirection(DcMotor.Direction.REVERSE);
 
@@ -145,6 +145,7 @@ public class Hardware
         foundationGrabberLeft  = hwMap.get(Servo.class, "foundationLeft");
         foundationGrabberRight = hwMap.get(Servo.class, "foundationRight");
         grabberBig = hwMap.get(Servo.class, "grabberBig");
+        grabberSmall = hwMap.get(Servo.class, "grabberSmall");
         rotGrabber = hwMap.get(Servo.class, "grabberRotator");
         foundationGrabberLeft.setPosition(MID_SERVO);
         foundationGrabberRight.setPosition(MID_SERVO);
