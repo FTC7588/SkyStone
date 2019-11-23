@@ -147,11 +147,7 @@ public class Hardware
         grabberBig = hwMap.get(Servo.class, "grabberBig");
         grabberSmall = hwMap.get(Servo.class, "grabberSmall");
         rotGrabber = hwMap.get(Servo.class, "grabberRotator");
-        foundationGrabberLeft.setPosition(MID_SERVO);
-        foundationGrabberRight.setPosition(MID_SERVO);
 
-        grabberBig.setPosition(MID_SERVO);
-        grabberSmall.setPosition(MID_SERVO);
     }
 
     public void initGyro() {

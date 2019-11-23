@@ -22,11 +22,7 @@ public class CrosslineAuto {
     }
 
     public void execute() {
-        driveTrainSubsystem.moveToPosition(30, 0.2);
-
-        driveTrainSubsystem.arc(-45.0, 13.0, 0.2);
-
-        driveTrainSubsystem.arc(45.0, 30.0, 0.2);
+        driveTrainSubsystem.moveToPosition(12, 0.2);
     }
 
     public void stop() {

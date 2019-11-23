@@ -31,7 +31,7 @@ public class IO {
     }
 
     public double elevator() {
-        double power = -gamepad2.left_stick_y;
+        double power = -gamepad2.left_stick_y +.05;
 
         return power;
     }
