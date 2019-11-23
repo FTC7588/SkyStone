@@ -48,11 +48,11 @@ public class IO {
         return gamepad2.y;
     }
 
-    public boolean rotGrabberLeft() {
-        return gamepad2.y;
+    public double rotGrabberPositive() {
+        return gamepad2.right_trigger;
     }
 
-    public boolean rotGrabberRight() {
-        return gamepad2.y;
+    public double rotGrabberNegative() {
+        return gamepad2.left_trigger;
     }
 }
