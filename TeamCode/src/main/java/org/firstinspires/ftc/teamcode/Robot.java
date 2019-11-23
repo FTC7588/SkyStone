@@ -4,7 +4,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+<<<<<<< HEAD
 import org.firstinspires.ftc.teamcode.commands.CrosslineAuto;
+=======
+import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.CstArray.List;
+>>>>>>> 40cd9ab78f2bffc0c5b42c89566a18cdcedc2395
 import org.firstinspires.ftc.teamcode.commands.DriveTrainTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.ElevatorTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.FoundationMoverCommand;
@@ -26,6 +30,7 @@ public class Robot {
 
     GrabberCommand grabberCommand;
 
+    List auto;
 
     IO io;
 
@@ -38,10 +43,14 @@ public class Robot {
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, hwmap, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, hwmap, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, hwmap, io);
+        grabberCommand = new GrabberCommand(telem, hwmap, io);
 
         testAutoCommand = new TestAutoCommand(telem, hwmap, io);
+<<<<<<< HEAD
         crosslineAuto = new CrosslineAuto(telem, hwmap, io);
         grabberCommand = new GrabberCommand(telem, hwmap, io);
+=======
+>>>>>>> 40cd9ab78f2bffc0c5b42c89566a18cdcedc2395
     }
 
     public void autoInit() {
