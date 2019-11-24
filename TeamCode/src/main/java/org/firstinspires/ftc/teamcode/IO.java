@@ -13,13 +13,13 @@ public class IO {
     }
 
     public double shuttlePower() {
-        double power = -gamepad2.right_stick_y;
+        double power = -gamepad1.right_stick_y;
 
         return power;
     }
 
     public double turn() {
-        double power = gamepad1.right_stick_x;
+        double power = gamepad1.left_stick_x;
 
         return power;
     }
@@ -31,7 +31,7 @@ public class IO {
     }
 
     public double elevator() {
-        double power = -gamepad2.left_stick_y +.05;
+        double power = -gamepad2.left_stick_y /2 +.05;
 
         return power;
     }
@@ -41,7 +41,7 @@ public class IO {
     }
 
     public boolean bigGrabberToggle() {
-        return gamepad2.x;
+        return gamepad1.right_bumper;
     }
 
     public boolean smallGrabberToggle() {

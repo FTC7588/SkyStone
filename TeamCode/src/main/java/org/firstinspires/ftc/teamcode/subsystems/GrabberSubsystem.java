@@ -44,9 +44,9 @@ public class GrabberSubsystem {
         hardware.grabberBig.setPosition(grabberPosition);
     }
     public void toggleSmallGrabber() {
-        if(bigGrabberClosed){
+        if(smallGrabberClosed){
             hardware.grabberSmall.setPosition(1);
-            bigGrabberClosed = false;
+            smallGrabberClosed = false;
 
         }
         else {

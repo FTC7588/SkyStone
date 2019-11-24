@@ -74,11 +74,12 @@ public class Robot {
     }
 
     public  void teleopInit() {
-        shuttleTeleopCommand.init();
+       /* shuttleTeleopCommand.init();
         driveTrainTeleopCommand.init();
         elevatorTeleopCommand.init();
         foundationMoverCommand.init();
         grabberCommand.init();
+        */
     }
 
     public void teleopExecute() {

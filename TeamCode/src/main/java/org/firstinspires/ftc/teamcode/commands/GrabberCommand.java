@@ -20,6 +20,7 @@ public class GrabberCommand {
     public void init(){
         grabberSubsystem.setBigGrabberPosition(0);
         grabberSubsystem.setSmallGrabberPosition(0);
+
     }
 
     public void execute() {
@@ -35,6 +36,7 @@ public class GrabberCommand {
             grabberSubsystem.rotGrabber(-io.rotGrabberNegative());
         } else {
             grabberSubsystem.rotGrabber(io.rotGrabberPositive());
+
         }
     }
     public void stop() {

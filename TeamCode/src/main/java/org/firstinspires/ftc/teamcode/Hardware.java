@@ -149,8 +149,7 @@ public class Hardware
         rotGrabber = hwMap.get(Servo.class, "grabberRotator");
 
     }
-
-    public void initGyro() {
+   public void initGyro() {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
