@@ -10,6 +10,8 @@ import org.firstinspires.ftc.teamcode.commands.DriveTrainTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.ElevatorTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.FoundationMoverCommand;
 import org.firstinspires.ftc.teamcode.commands.GrabberCommand;
+import org.firstinspires.ftc.teamcode.commands.LeftArcAuto;
+import org.firstinspires.ftc.teamcode.commands.RightArcAuto;
 import org.firstinspires.ftc.teamcode.commands.ShuttleTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.TestAutoCommand;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
@@ -21,6 +23,8 @@ public class Robot {
     DriveTrainTeleopCommand driveTrainTeleopCommand;
     ElevatorTeleopCommand elevatorTeleopCommand;
     FoundationMoverCommand foundationMoverCommand;
+    LeftArcAuto leftArcAuto;
+    RightArcAuto rightArcAuto;
 
     TestAutoCommand testAutoCommand;
     CrosslineAuto crosslineAuto;
@@ -45,6 +49,9 @@ public class Robot {
         testAutoCommand = new TestAutoCommand(telem, hwmap, io);
         crosslineAuto = new CrosslineAuto(telem, hwmap, io);
         grabberCommand = new GrabberCommand(telem, hwmap, io);
+
+        leftArcAuto = new LeftArcAuto(telem, hwmap, io);
+        rightArcAuto = new RightArcAuto(telem, hwmap, io);
     }
 
     public void autoInit() {
@@ -52,24 +59,34 @@ public class Robot {
             testAutoCommand.init();
         }
         else if (programName == "Line Cross Auto"){
-                crosslineAuto.init();
-            }
-        }
-    public void autoExecute() {
-        if (programName == "Test Auto"){
-            testAutoCommand.execute();
-        }
-        else if (programName == "Line Cross Auto"){
-            crosslineAuto.execute();
+            crosslineAuto.init();
+        } else if (programName == "Left Arc Auto") {
+            leftArcAuto.init();
+        } else if (programName == "Right Arc Auto") {
+            rightArcAuto.init();
         }
     }
 
-    public void autoEnd() {
+    public void autoExecute() {
+        if (programName == "Test Auto") {
+            testAutoCommand.execute();
+        } else if (programName == "Line Cross Auto") {
+            crosslineAuto.execute();
+        }else if (programName == "Left Arc Auto") {
+            leftArcAuto.execute();
+        } else if (programName == "Right Arc Auto") {
+            rightArcAuto.execute();
+        }
+    }
+    public void autoEnd () {
         if (programName == "Test Auto") {
             testAutoCommand.stop();
-        }
-        else if (programName == "Line Cross Auto"){
-                crosslineAuto.stop();
+        } else if (programName == "Line Cross Auto") {
+            crosslineAuto.stop();
+        }else if (programName == "Left Arc Auto") {
+            leftArcAuto.stop();
+        } else if (programName == "Right Arc Auto") {
+            rightArcAuto.stop();
         }
     }
 

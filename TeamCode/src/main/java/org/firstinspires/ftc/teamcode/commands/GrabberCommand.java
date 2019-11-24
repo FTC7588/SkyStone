@@ -32,13 +32,14 @@ public class GrabberCommand {
             grabberSubsystem.toggleSmallGrabber();
         }
 
-        if (io.rotGrabberNegative() > 0) {
+       /* if (io.rotGrabberNegative() > 0) {
             grabberSubsystem.rotGrabber(-io.rotGrabberNegative());
         } else {
             grabberSubsystem.rotGrabber(io.rotGrabberPositive());
-
+            */
         }
-    }
+
+
     public void stop() {
 
     }

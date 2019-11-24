@@ -134,6 +134,11 @@ public class Hardware
         elevatorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         shuttleDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        backLeftDrive.setTargetPosition(0);
+        backRightDrive.setTargetPosition(0);
+        frontLeftDrive.setTargetPosition(0);
+        frontRightDrive.setTargetPosi20tion(0);
+
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
