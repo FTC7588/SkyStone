@@ -24,7 +24,7 @@ public class RightArcAuto {
     public void execute() {
         driveTrainSubsystem.moveToPosition(26.4, 0.2);
 
-        driveTrainSubsystem.turnWithGyro(90, 0.2);
+        driveTrainSubsystem.turnWithGyro(90, -0.2);
 
         driveTrainSubsystem.moveToPosition(34, 0.2);
     }

@@ -137,7 +137,7 @@ public class Hardware
         backLeftDrive.setTargetPosition(0);
         backRightDrive.setTargetPosition(0);
         frontLeftDrive.setTargetPosition(0);
-        frontRightDrive.setTargetPosi20tion(0);
+        frontRightDrive.setTargetPosition(0);
 
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -152,6 +152,8 @@ public class Hardware
         grabberBig = hwMap.get(Servo.class, "grabberBig");
         grabberSmall = hwMap.get(Servo.class, "grabberSmall");
         rotGrabber = hwMap.get(Servo.class, "grabberRotator");
+
+        rotGrabber.setPosition(1);
 
     }
    public void initGyro() {
