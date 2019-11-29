@@ -153,7 +153,7 @@ public class Hardware
         grabberSmall = hwMap.get(Servo.class, "grabberSmall");
         rotGrabber = hwMap.get(Servo.class, "grabberRotator");
 
-        rotGrabber.setPosition(1);
+        rotGrabber.setPosition(.9);
 
     }
    public void initGyro() {
