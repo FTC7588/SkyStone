@@ -1,8 +1,24 @@
 package org.firstinspires.ftc.teamcode.Pathfinder;
 
+import org.firstinspires.ftc.teamcode.JNI.JNILoader;
 import org.firstinspires.ftc.teamcode.Pathfinder.modifiers.SwerveModifier;
 
 public class PathfinderJNI {
+
+    static boolean libLoaded = false;
+
+    static {
+        if (!libLoaded) {
+            try {
+                new JNILoader("pathfinder").load();
+                new JNILoader("pathfinderjni").load();
+                // System.loadLibrary("pathfinderjni");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            libLoaded = true;
+        }
+    }
 
     public static Trajectory generateTrajectory(Waypoint[] waypoints, Trajectory.Config c) {
         return new Trajectory(generateTrajectory(waypoints, c.fit, c.sample_count, c.dt, c.max_velocity, c.max_acceleration, c.max_jerk));

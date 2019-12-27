@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -39,6 +38,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.JNI.JNILoader;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -67,6 +67,20 @@ public class SwerveTeleop extends OpMode
 
     private SwerveHardware swerve = new SwerveHardware();
 
+    private double voltages = 0;
+    private int volatgesRead = 0;
+    private double voltage = 0;
+    private int normInterval = 250;
+    private boolean downBounce = false;
+    private boolean upBounce = false;
+
+    private WheelDrive backRight;
+    private WheelDrive backLeft;
+    private WheelDrive frontRight;
+    private WheelDrive frontLeft;
+
+    private SwerveDrive swerveDrive;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -76,8 +90,19 @@ public class SwerveTeleop extends OpMode
 
         swerve.init(hardwareMap);
 
+        backLeft = new WheelDrive(swerve.rearLeftTurn, swerve.rearLeftDrive, swerve.rearLeftEncoder, telemetry);
+        backRight = new WheelDrive(swerve.rearRightTurn, swerve.rearRightDrive, swerve.rearRightEncoder, telemetry);
+        frontLeft = new WheelDrive(swerve.frontLeftTurn, swerve.frontLeftDrive, swerve.frontLeftEncoder, telemetry);
+        frontRight = new WheelDrive(swerve.frontRightTurn, swerve.frontRightDrive, swerve.frontRightEncoder, telemetry);
+
+        swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight);
+
         angles   = swerve.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = swerve.imu.getGravity();
+
+        telemetry.addData("OS:", JNILoader.getNormalizedOS());
+
+        telemetry.addData("ARCH: ", JNILoader.getNormalizedArchitecture());
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -103,10 +128,15 @@ public class SwerveTeleop extends OpMode
      */
     @Override
     public void loop() {
-        telemetry.addData("Rear Left Encoder Value: ", swerve.rearLeftEncoder.getCurrentPosition());
-        telemetry.addData("Rear Right Encoder Value: ", swerve.rearRightEncoder.getCurrentPosition());
-        telemetry.addData("Front Left Encoder Value: ", swerve.frontLeftEncoder.getCurrentPosition());
-        telemetry.addData("Front Right Encoder Value: ", swerve.frontRightEncoder.getCurrentPosition());
+        telemetry.addData("Rear Left Encoder Value: ", swerve.rearLeftEncoder.getAbsoluteTicks());
+        telemetry.addData("Rear Right Encoder Value: ", swerve.rearRightEncoder.getAbsoluteTicks());
+        telemetry.addData("Front Left Encoder Value: ", swerve.frontLeftEncoder.getAbsoluteTicks());
+        telemetry.addData("Front Right Encoder Value: ", swerve.frontRightEncoder.getAbsoluteTicks());
+
+        telemetry.addData("","");
+        telemetry.addData("encoder: ", swerve.rearLeftEncoder.getAbsoluteTicks());
+
+        swerveDrive.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, telemetry);
     }
 
     /*
@@ -116,5 +146,4 @@ public class SwerveTeleop extends OpMode
     public void stop() {
 
     }
-
 }

@@ -29,8 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -38,9 +39,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.Pathfinder.Pathfinder;
-import org.firstinspires.ftc.teamcode.Pathfinder.Trajectory;
-import org.firstinspires.ftc.teamcode.Pathfinder.Waypoint;
+import org.firstinspires.ftc.teamcode.JNI.JNILoader;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -56,18 +55,16 @@ import org.firstinspires.ftc.teamcode.Pathfinder.Waypoint;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Basic Pathfinder Swerve Auto", group="Swerve")
+@TeleOp(name="PID Teleop", group="Swerve")
 //@Disabled
-public class SwervePathfinderAuto extends OpMode
+public class PIDTeleop extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
-    // State used for updating telemetry
-    private Orientation angles;
-    private Acceleration gravity;
+    private PIDHardware swerve = new PIDHardware();
 
-    private SwerveHardware swerve = new SwerveHardware();
+    private PIDControllerMotor pid;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -78,28 +75,8 @@ public class SwervePathfinderAuto extends OpMode
 
         swerve.init(hardwareMap);
 
-        angles   = swerve.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        gravity  = swerve.imu.getGravity();
+        pid = new PIDControllerMotor(0.1,0,1000,5,swerve.encoder, swerve.motor, telemetry);
 
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-        Waypoint[] points = new Waypoint[] {
-                new Waypoint(-4, -1, Pathfinder.d2r(-45)),
-                new Waypoint(-2, -2, 0),
-                new Waypoint(0, 0, 0)
-        };
-
-        Trajectory trajectory = Pathfinder.generate(points, config);
-
-        //Wheelbase Width = 0.5m, Wheelbase Depth = 0.6m, Swerve Mode = Default
-        //SwerveModifier modifier = new SwerveModifier(trajectory).modify(0.5, 0.6, SwerveModifier.Mode.SWERVE_DEFAULT);
-
-        // Do something with the new Trajectories...
-        //Trajectory fl = modifier.getFrontLeftTrajectory();
-        //Trajectory fr = modifier.getFrontRightTrajectory();
-        //Trajectory bl = modifier.getBackLeftTrajectory();
-        //Trajectory br = modifier.getBackRightTrajectory();
-
-        // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
 
@@ -116,8 +93,6 @@ public class SwervePathfinderAuto extends OpMode
     @Override
     public void start() {
         runtime.reset();
-
-
     }
 
     /*
@@ -126,6 +101,14 @@ public class SwervePathfinderAuto extends OpMode
     @Override
     public void loop() {
 
+        pid.setPoint(1024);
+        pid.enable();
+
+        //swerve.motor.setPower(.75);
+
+        telemetry.addData("", swerve.encoder.getAbsoluteTicks());
+
+        pid.update();
     }
 
     /*
@@ -135,5 +118,4 @@ public class SwervePathfinderAuto extends OpMode
     public void stop() {
 
     }
-
 }
