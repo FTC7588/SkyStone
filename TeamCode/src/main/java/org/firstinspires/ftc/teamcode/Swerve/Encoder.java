@@ -1,33 +1,41 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Swerve;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Encoder {
     private DcMotor encoder;
 
-    public Encoder (DcMotor encoder) {
+    private int ticksPerRev;
+
+    public Encoder (DcMotor encoder, int ticksPerRev) {
         this.encoder = encoder;
+
+        this.ticksPerRev = ticksPerRev;
     }
 
     public int getRawTicks() {
         return encoder.getCurrentPosition();
     }
 
-    public  double getAbsoluteTicks() {
+    public int getAbsoluteTicks() {
         int encoderHalfRevs= (encoder.getCurrentPosition()/2048);
         int encoderRemainder = encoder.getCurrentPosition()-(encoderHalfRevs*2048);
-        double encoderValue;
+        int encoderValue;
 
         if (encoderHalfRevs % 2 == 0) {
             encoderValue = encoderRemainder;
         } else {
             if (encoder.getCurrentPosition() < 0) {
-                encoderValue = (2048+encoderRemainder);
+                encoderValue = (getTicksPerRev()/2+encoderRemainder);
             } else {
-                encoderValue = -(2048-encoderRemainder);
+                encoderValue = -(getTicksPerRev()/2-encoderRemainder);
             }
         }
 
         return encoderValue;
+    }
+
+    public int getTicksPerRev() {
+        return ticksPerRev;
     }
 }

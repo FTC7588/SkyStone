@@ -1,0 +1,37 @@
+# Sets the minimum version of CMake required to build your native library.
+# This ensures that a certain set of CMake features is available to
+# your build.
+
+cmake_minimum_required(VERSION 3.4.1)
+
+# Specifies a library name, specifies whether the library is STATIC or
+# SHARED, and provides relative paths to the source code. You can
+# define multiple libraries by adding multiple add_library() commands,
+# and CMake builds them for you. When you build your app, Gradle
+# automatically packages shared libraries with your APK.
+
+add_library(
+        # Specifies the name of the library.
+        pathfinder
+
+        # Sets the library as a shared library.
+        SHARED
+
+        # Provides a relative path to your source file(s).
+        src/error.c
+        src/generator.c
+        src/io.c
+        src/mathutil.c
+        src/spline.c
+        src/trajectory.c
+        src/modifiers/tank.c
+        src/modifiers/swerve.c
+        src/followers/encoder.c
+        src/followers/distance.c
+        src/fit/hermite.c
+        examples/basic.c
+        examples/tank.c
+        examples/swerve.c
+)
+
+include_directories(include/)

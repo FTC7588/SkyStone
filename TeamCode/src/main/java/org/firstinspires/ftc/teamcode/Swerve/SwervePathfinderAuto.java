@@ -27,9 +27,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Swerve;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -57,7 +58,7 @@ import org.firstinspires.ftc.teamcode.Pathfinder.Waypoint;
  */
 
 @Autonomous(name="Basic Pathfinder Swerve Auto", group="Swerve")
-//@Disabled
+@Disabled
 public class SwervePathfinderAuto extends OpMode
 {
     // Declare OpMode members.

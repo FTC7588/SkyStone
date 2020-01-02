@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Swerve;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -90,19 +90,15 @@ public class SwerveTeleop extends OpMode
 
         swerve.init(hardwareMap);
 
-        backLeft = new WheelDrive(swerve.rearLeftTurn, swerve.rearLeftDrive, swerve.rearLeftEncoder, telemetry);
-        backRight = new WheelDrive(swerve.rearRightTurn, swerve.rearRightDrive, swerve.rearRightEncoder, telemetry);
-        frontLeft = new WheelDrive(swerve.frontLeftTurn, swerve.frontLeftDrive, swerve.frontLeftEncoder, telemetry);
-        frontRight = new WheelDrive(swerve.frontRightTurn, swerve.frontRightDrive, swerve.frontRightEncoder, telemetry);
+        backLeft = new WheelDrive(swerve.rearLeftTurn, swerve.rearLeftDrive, swerve.rearLeftEncoder);
+        backRight = new WheelDrive(swerve.rearRightTurn, swerve.rearRightDrive, swerve.rearRightEncoder);
+        frontLeft = new WheelDrive(swerve.frontLeftTurn, swerve.frontLeftDrive, swerve.frontLeftEncoder);
+        frontRight = new WheelDrive(swerve.frontRightTurn, swerve.frontRightDrive, swerve.frontRightEncoder);
 
         swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight);
 
         angles   = swerve.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = swerve.imu.getGravity();
-
-        telemetry.addData("OS:", JNILoader.getNormalizedOS());
-
-        telemetry.addData("ARCH: ", JNILoader.getNormalizedArchitecture());
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -134,7 +130,16 @@ public class SwerveTeleop extends OpMode
         telemetry.addData("Front Right Encoder Value: ", swerve.frontRightEncoder.getAbsoluteTicks());
 
         telemetry.addData("","");
-        telemetry.addData("encoder: ", swerve.rearLeftEncoder.getAbsoluteTicks());
+
+        telemetry.addData("Front Left Drive", swerve.frontLeftDrive.getCurrentPosition());
+        telemetry.addData("Front Right Drive", swerve.frontRightDrive.getCurrentPosition());
+        telemetry.addData("Rear Left Drive", swerve.rearLeftDrive.getCurrentPosition());
+        telemetry.addData("Rear Right Drive", swerve.rearRightDrive.getCurrentPosition());
+
+        //backLeft.drive(0,gamepad1.left_stick_y);
+        //backRight.drive(0,gamepad1.left_stick_y);
+        //frontLeft.drive(0,gamepad1.left_stick_y);
+        //frontRight.drive(0,gamepad1.left_stick_y);
 
         swerveDrive.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, telemetry);
     }

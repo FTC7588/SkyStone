@@ -17,12 +17,12 @@ import java.util.List;
 public class JNILoader {
     private final String libraryName;
     private boolean loaded;
-    private List<String> testPaths;
+    //private List<String> testPaths;
 
     public JNILoader(String libraryName) {
         this.libraryName = libraryName;
-        this.testPaths = new ArrayList();
-        this.testPaths.add(getPlatformString() + "/" + this.getSharedLibraryFile());
+        //this.testPaths = new ArrayList();
+        //this.testPaths.add(getPlatformString() + "/" + this.getSharedLibraryFile());
     }
 
     public void load() {
@@ -33,9 +33,9 @@ public class JNILoader {
 
     }
 
-    public void addPath(String path) {
+    /**public void addPath(String path) {
         this.testPaths.add(path);
-    }
+    }*/
 
     public static String getPlatformString() {
         return getNormalizedOS() + getNormalizedArchitecture();
@@ -72,27 +72,27 @@ public class JNILoader {
         try {
             System.loadLibrary(this.libraryName);
         } catch (UnsatisfiedLinkError var9) {
-            boolean trying = true;
-            Iterator var3 = this.testPaths.iterator();
+            //boolean trying = true;
+            //Iterator var3 = this.testPaths.iterator();
 
-            while(var3.hasNext()) {
-                String path = (String)var3.next();
+            //while(var3.hasNext()) {
+                //String path = (String)var3.next();
 
-                try {
-                    this.tryLoadRelative(path);
-                    trying = false;
-                } catch (UnsatisfiedLinkError var8) {
-                    try {
-                        this.tryLoadJarResource(path);
-                        trying = false;
-                    } catch (UnsatisfiedLinkError | IOException var7) {
-                    }
-                }
-            }
+                //try {
+                    //this.tryLoadRelative(path);
+                    //trying = false;
+                //} catch (UnsatisfiedLinkError var8) {
+                    //try {
+                        //this.tryLoadJarResource(path);
+                        //trying = false;
+                    //} catch (UnsatisfiedLinkError | IOException var7) {
+                    //}
+                //}
+            //}
 
-            if (trying) {
-                throw new UnsatisfiedLinkError(this.libraryName + " could not be found at any location!");
-            }
+            //if (trying) {
+                //throw new UnsatisfiedLinkError(this.libraryName + " could not be found at any location!");
+            //}
         }
 
     }

@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Swerve;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -35,6 +35,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.teamcode.Pathfinder.Trajectory;
+import org.firstinspires.ftc.teamcode.Pathfinder.modifiers.SwerveModifier;
 
 
 /**
@@ -59,6 +62,15 @@ public class SwerveTestAuto extends LinearOpMode {
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
 
+    static {
+        try {
+            System.loadLibrary("pathfinder");
+        } catch (UnsatisfiedLinkError e){
+            System.err.println("pathfinder did the big fail, apparently it went like this:\n" + e);
+            System.exit(1);
+        }
+    }
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -66,4 +78,7 @@ public class SwerveTestAuto extends LinearOpMode {
 
 
     }
+
+    public static native Trajectory.Segment[][] modifyTrajectorySwerve(Trajectory.Segment[] source, double wheelbase_width, double wheelbase_depth, SwerveModifier.Mode mode);
+
 }

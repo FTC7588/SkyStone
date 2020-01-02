@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Swerve;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.Encoder;
 
 /**
  * This is NOT an opmode.
@@ -42,15 +41,10 @@ public class SwerveHardware {
     private DcMotor frontRightEncoderPort;
 
     //Declare Servos
-    public Servo rearLeftTurn;
-    public Servo rearRightTurn;
-    public Servo frontLeftTurn;
-    public Servo frontRightTurn;
-
-    public AnalogInput rearLeftAnalog;
-    public AnalogInput rearRightAnalog;
-    public AnalogInput frontLeftAnalog;
-    public AnalogInput frontRightAnalog;
+    public CRServo rearLeftTurn;
+    public CRServo rearRightTurn;
+    public CRServo frontLeftTurn;
+    public CRServo frontRightTurn;
 
     public Encoder rearLeftEncoder;
     public Encoder rearRightEncoder;
@@ -90,10 +84,10 @@ public class SwerveHardware {
         frontRightEncoderPort = hwMap.get(DcMotor.class, "frontRightEncoderPort");
 
         // Servos
-        rearLeftTurn = hwMap.get(Servo.class, "rearLeftTurn");
-        rearRightTurn = hwMap.get(Servo.class, "rearRightTurn");
-        frontLeftTurn = hwMap.get(Servo.class, "frontLeftTurn");
-        frontRightTurn = hwMap.get(Servo.class, "frontRightTurn");
+        rearLeftTurn = hwMap.get(CRServo.class, "rearLeftTurn");
+        rearRightTurn = hwMap.get(CRServo.class, "rearRightTurn");
+        frontLeftTurn = hwMap.get(CRServo.class, "frontLeftTurn");
+        frontRightTurn = hwMap.get(CRServo.class, "frontRightTurn");
 
         imu = hwMap.get(BNO055IMU.class, "imu");
 
@@ -124,20 +118,25 @@ public class SwerveHardware {
         frontRightEncoderPort.setPower(0);
 
         // Stop the turning Servos
-        rearLeftTurn.setPosition(.5);
-        rearRightTurn.setPosition(.5);
-        frontLeftTurn.setPosition(.5);
-        frontRightTurn.setPosition(.5);
+        rearLeftTurn.setPower(0);
+        rearRightTurn.setPower(0);
+        frontLeftTurn.setPower(0);
+        frontRightTurn.setPower(0);
 
         rearLeftEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rearRightEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeftEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        rearLeftEncoder = new Encoder(rearLeftEncoderPort);
-        rearRightEncoder = new Encoder(rearRightEncoderPort);
-        frontLeftEncoder = new Encoder(frontLeftEncoderPort);
-        frontRightEncoder = new Encoder(frontRightEncoderPort);
+        rearLeftEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rearRightEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        rearLeftEncoder = new Encoder(rearLeftEncoderPort, 4096);
+        rearRightEncoder = new Encoder(rearRightEncoderPort, 4096);
+        frontLeftEncoder = new Encoder(frontLeftEncoderPort, 4096);
+        frontRightEncoder = new Encoder(frontRightEncoderPort, 4096);
 
         // Set up the parameters with which we will use our IMU. Note that integration
         // algorithm here just reports accelerations to the logcat log; it doesn't actually
