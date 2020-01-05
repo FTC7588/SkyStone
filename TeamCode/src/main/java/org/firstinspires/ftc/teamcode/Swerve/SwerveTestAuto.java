@@ -29,11 +29,15 @@
 
 package org.firstinspires.ftc.teamcode.Swerve;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Pathfinder.jaci.pathfinder.Pathfinder;
+import org.firstinspires.ftc.teamcode.Pathfinder.jaci.pathfinder.Trajectory;
+import org.firstinspires.ftc.teamcode.Pathfinder.jaci.pathfinder.Waypoint;
+import org.firstinspires.ftc.teamcode.Pathfinder.jaci.pathfinder.modifiers.SwerveModifier;
 
 
 /**
@@ -58,18 +62,35 @@ public class SwerveTestAuto extends LinearOpMode {
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
 
-    static {
-        System.loadLibrary("pathfinder");
-    }
-
     @Override
     public void runOpMode() {
+        telemetry.addData("Status", "Generating Trajectories");
+
+        // 3 Waypoints
+        Waypoint[] points = new Waypoint[] {
+                new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+                new Waypoint(-2, -2, 0),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
+                new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+        };
+
+        // Create the Trajectory Configuration
+        //
+        // Arguments:
+        // Fit Method:          HERMITE_CUBIC or HERMITE_QUINTIC
+        // Sample Count:        SAMPLES_HIGH (100 000)
+        //                      SAMPLES_LOW  (10 000)
+        //                      SAMPLES_FAST (1 000)
+        // Time Step:           0.05 Seconds
+        // Max Velocity:        1.7 m/s
+        // Max Acceleration:    2.0 m/s/s
+        // Max Jerk:            60.0 m/s/s/s
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+
+        // Generate the trajectory
+        Trajectory trajectory = Pathfinder.generate(points, config);
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-
     }
-
-    public native void pathfinder_set_error(char msg);
 
 }

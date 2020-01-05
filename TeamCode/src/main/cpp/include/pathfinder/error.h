@@ -5,7 +5,7 @@
 #include "pathfinder/lib.h"
 
 
-jchar * pathfinder_error();
+char * pathfinder_error();
 void pathfinder_set_error(const char *msg);
 
 void pathfinder_clear_errors();

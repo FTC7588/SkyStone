@@ -39,9 +39,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.Pathfinder.Pathfinder;
-import org.firstinspires.ftc.teamcode.Pathfinder.Trajectory;
-import org.firstinspires.ftc.teamcode.Pathfinder.Waypoint;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -82,14 +79,14 @@ public class SwervePathfinderAuto extends OpMode
         angles   = swerve.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = swerve.imu.getGravity();
 
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-        Waypoint[] points = new Waypoint[] {
-                new Waypoint(-4, -1, Pathfinder.d2r(-45)),
-                new Waypoint(-2, -2, 0),
-                new Waypoint(0, 0, 0)
-        };
+        //Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+        //Waypoint[] points = new Waypoint[] {
+        //        new Waypoint(-4, -1, Pathfinder.d2r(-45)),
+        //        new Waypoint(-2, -2, 0),
+        //        new Waypoint(0, 0, 0)
+        //};
 
-        Trajectory trajectory = Pathfinder.generate(points, config);
+        //Trajectory trajectory = Pathfinder.generate(points, config);
 
         //Wheelbase Width = 0.5m, Wheelbase Depth = 0.6m, Swerve Mode = Default
         //SwerveModifier modifier = new SwerveModifier(trajectory).modify(0.5, 0.6, SwerveModifier.Mode.SWERVE_DEFAULT);

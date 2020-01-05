@@ -29,9 +29,8 @@ add_library(
         src/followers/encoder.c
         src/followers/distance.c
         src/fit/hermite.c
-        examples/basic.c
-        examples/tank.c
-        examples/swerve.c
+        ../java/org/firstinspires/ftc/teamcode/Pathfinder/pathfinder_java.c
+        #org/firstinspires/ftc/teamcode/Pathfinder/jaci/pathfinder/PathfinderJNI.java
 )
 
 include_directories(include/)
