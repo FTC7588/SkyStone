@@ -66,31 +66,33 @@ public class SwerveTestAuto extends LinearOpMode {
     public void runOpMode() {
         telemetry.addData("Status", "Generating Trajectories");
 
-        // 3 Waypoints
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
         Waypoint[] points = new Waypoint[] {
-                new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-                new Waypoint(-2, -2, 0),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
-                new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+                new Waypoint(-4, -1, Pathfinder.d2r(-45)),
+                new Waypoint(-2, -2, 0),
+                new Waypoint(0, 0, 0)
         };
 
-        // Create the Trajectory Configuration
-        //
-        // Arguments:
-        // Fit Method:          HERMITE_CUBIC or HERMITE_QUINTIC
-        // Sample Count:        SAMPLES_HIGH (100 000)
-        //                      SAMPLES_LOW  (10 000)
-        //                      SAMPLES_FAST (1 000)
-        // Time Step:           0.05 Seconds
-        // Max Velocity:        1.7 m/s
-        // Max Acceleration:    2.0 m/s/s
-        // Max Jerk:            60.0 m/s/s/s
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-
-        // Generate the trajectory
         Trajectory trajectory = Pathfinder.generate(points, config);
 
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        // Wheelbase Width = 0.5m, Wheelbase Depth = 0.6m, Swerve Mode = Default
+        SwerveModifier modifier = new SwerveModifier(trajectory).modify(0.5, 0.6, SwerveModifier.Mode.SWERVE_DEFAULT);
+
+        // Do something with the new Trajectories...
+        Trajectory fl = modifier.getFrontLeftTrajectory();
+        Trajectory fr = modifier.getFrontRightTrajectory();
+        Trajectory bl = modifier.getBackLeftTrajectory();
+        Trajectory br = modifier.getBackRightTrajectory();
+
+        waitForStart();
+
+        //Trajectory fl = modifier.getFrontLeftTrajectory();       // Get the Front Left wheel
+        //Trajectory fr = modifier.getFrontRightTrajectory();      // Get the Front Right wheel
+        //Trajectory bl = modifier.getBackLeftTrajectory();        // Get the Back Left wheel
+        //Trajectory br = modifier.getBackRightTrajectory();       // Get the Back Right wheel
+
+        //telemetry.addData("Status", "Initialized");
+        //telemetry.update();
     }
 
 }
