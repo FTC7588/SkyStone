@@ -27,13 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.menuItems;
+package org.firstinspires.ftc.teamcode.menuItems.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.AutonomousController;
+import org.firstinspires.ftc.teamcode.control.AutonomousController;
 
 /**
  * This file illustrates the basic construction of a class to add an item to the driver station menu.
@@ -42,20 +41,18 @@ import org.firstinspires.ftc.teamcode.AutonomousController;
  * AutonmousController constructor string to reflect the human and ccde names of your opmode reflectively.
  */
 
-@Autonomous(name="Test Auto", group="Menu Example")
-//@Disabled
-public class TestAutoMenu extends LinearOpMode {
+@Autonomous(name="Auto Menu Example", group="Menu Example")
+@Disabled
+public class AutoMenuExample extends LinearOpMode {
 
     /* Declare OpMode members. */
     AutonomousController autonomousController;
 
     @Override
     public void runOpMode() {
-        autonomousController = new AutonomousController("Test Auto", telemetry, gamepad1, gamepad2, hardwareMap);
+        autonomousController = new AutonomousController("Auto Menu Example", telemetry, gamepad1, gamepad2, hardwareMap);
 
         autonomousController.initOpMode();
-
-        waitForStart();
 
         autonomousController.runOpMode();
 

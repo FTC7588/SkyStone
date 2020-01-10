@@ -27,35 +27,37 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.menuItems.autonomous;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.control.AutonomousController;
 
 /**
- * This file controls the timing of Robot.java methods during auto using data from menu classes.
+ * This file illustrates the basic construction of a class to add an item to the driver station menu.
+ *
+ * Copy this file in android studio, then comment out the @Disabled line and change the name and
+ * AutonmousController constructor string to reflect the human and ccde names of your opmode reflectively.
  */
 
-public class AutonomousController {
+@Autonomous(name="Line Cross Auto", group="Auto")
+//@Disabled
+public class LineCrossAutoMenu extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Robot robotController;
+    AutonomousController autonomousController;
 
-    public AutonomousController(String autoName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2, HardwareMap hwmap) {
-        robotController = new Robot(autoName, telem, hwmap, gamepad1, gamepad2);
-    }
-
-    public void initOpMode() {
-        robotController.autoInit();
-    }
-
+    @Override
     public void runOpMode() {
-        robotController.autoExecute();
-    }
+        autonomousController = new AutonomousController("Line Cross Auto", telemetry, gamepad1, gamepad2, hardwareMap);
 
-    public void stopOpMode() {
-        robotController.autoEnd();
+        autonomousController.initOpMode();
+
+        waitForStart();
+
+        autonomousController.runOpMode();
+
+        autonomousController.stopOpMode();
     }
 }

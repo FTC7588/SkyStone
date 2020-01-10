@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.Swerve;
+package org.firstinspires.ftc.teamcode.control;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Swerve.WheelDrive;
+import org.firstinspires.ftc.teamcode.control.WheelDrive;
 
 public class SwerveDrive {
     private WheelDrive backRight;

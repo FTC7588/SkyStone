@@ -57,8 +57,7 @@ public class Robot {
     public void autoInit() {
         if (programName == "Test Auto") {
             testAutoCommand.init();
-        }
-        else if (programName == "Line Cross Auto"){
+        } else if (programName == "Line Cross Auto"){
             crosslineAuto.init();
         } else if (programName == "Left Arc Auto") {
             leftArcAuto.init();

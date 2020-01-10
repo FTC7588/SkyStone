@@ -27,35 +27,36 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.control;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * This file controls the timing of Robot.java methods during auto using data from menu classes.
  */
 
-public class TeleopController {
+public class AutonomousController {
 
     /* Declare OpMode members. */
     Robot robotController;
 
-    public TeleopController(String callerName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2, HardwareMap hwmap) {
-        robotController = new Robot(callerName, telem, hwmap, gamepad1, gamepad2);
+    public AutonomousController(String autoName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2, HardwareMap hwmap) {
+        robotController = new Robot(autoName, telem, hwmap, gamepad1, gamepad2);
     }
 
     public void initOpMode() {
-        robotController.teleopInit();
+        robotController.autoInit();
     }
 
     public void runOpMode() {
-        robotController.teleopExecute();
+        robotController.autoExecute();
     }
 
     public void stopOpMode() {
-        robotController.teleopEnd();
+        robotController.autoEnd();
     }
 }

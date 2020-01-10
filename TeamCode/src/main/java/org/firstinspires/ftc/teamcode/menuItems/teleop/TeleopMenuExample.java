@@ -27,37 +27,42 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.menuItems;
+package org.firstinspires.ftc.teamcode.menuItems.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.AutonomousController;
+import org.firstinspires.ftc.teamcode.control.TeleopController;
 
 /**
  * This file illustrates the basic construction of a class to add an item to the driver station menu.
  *
  * Copy this file in android studio, then comment out the @Disabled line and change the name and
- * AutonmousController constructor string to reflect the human and ccde names of your opmode reflectively.
+ * TeleopController constructor string to reflect the human and ccde names of your opmode reflectively.
  */
 
-@Autonomous(name="Left Arc Auto", group="Auto")
-//@Disabled
-public class LeftArcAutoMenu extends LinearOpMode {
+@TeleOp(name="Teleop Menu Example", group="Menu Example")
+@Disabled
+public class TeleopMenuExample extends LinearOpMode {
 
     /* Declare OpMode members. */
-    AutonomousController autonomousController;
+    TeleopController teleopController;
 
     @Override
     public void runOpMode() {
-        autonomousController = new AutonomousController("Left Arc Auto", telemetry, gamepad1, gamepad2, hardwareMap);
+        teleopController = new TeleopController("Teleop Menu Example", telemetry, gamepad1, gamepad2, hardwareMap);
 
-        autonomousController.initOpMode();
+        teleopController.initOpMode();
 
+        // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        autonomousController.runOpMode();
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+            teleopController.runOpMode();
+        }
 
-        autonomousController.stopOpMode();
+        teleopController.stopOpMode();
     }
 }

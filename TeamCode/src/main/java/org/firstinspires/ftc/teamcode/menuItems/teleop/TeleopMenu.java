@@ -27,16 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.menuItems;
+package org.firstinspires.ftc.teamcode.menuItems.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
-import org.firstinspires.ftc.teamcode.TeleopController;
+import org.firstinspires.ftc.teamcode.control.TeleopController;
 
 /**
  * This file illustrates the basic construction of a class to add an item to the driver station menu.
@@ -45,16 +41,16 @@ import org.firstinspires.ftc.teamcode.TeleopController;
  * TeleopController constructor string to reflect the human and ccde names of your opmode reflectively.
  */
 
-@TeleOp(name="Teleop Menu Example", group="Menu Example")
-@Disabled
-public class TeleopMenuExample extends LinearOpMode {
+@TeleOp(name="Teleop", group="Teleop")
+//@Disabled
+public class TeleopMenu extends LinearOpMode {
 
     /* Declare OpMode members. */
     TeleopController teleopController;
 
     @Override
     public void runOpMode() {
-        teleopController = new TeleopController("Teleop Menu Example", telemetry, gamepad1, gamepad2, hardwareMap);
+        teleopController = new TeleopController("Teleop", telemetry, gamepad1, gamepad2, hardwareMap);
 
         teleopController.initOpMode();
 

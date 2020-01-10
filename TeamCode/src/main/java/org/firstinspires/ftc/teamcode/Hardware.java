@@ -66,8 +66,6 @@ public class Hardware
     public DcMotor  shuttleDrive =  null;
     public DcMotor  elevatorRight = null;
     public DcMotor  elevatorLeft = null;
-    public Servo frontLeftClaw = null;
-    public Servo frontRightClaw = null;
     public Servo foundationGrabberLeft = null;
     public Servo foundationGrabberRight = null;
     public Servo grabberBig = null;
@@ -78,12 +76,8 @@ public class Hardware
     public Orientation angles;
     public Acceleration gravity;
 
-    public static final double ARM_UP_POWER    =  0.45 ;
-    public static final double ARM_DOWN_POWER  = -0.45 ;
-    public static final double MID_SERVO = 0.5;
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
     public Hardware(){
@@ -156,7 +150,8 @@ public class Hardware
         rotGrabber.setPosition(.9);
 
     }
-   public void initGyro() {
+
+    public void initGyro() {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;

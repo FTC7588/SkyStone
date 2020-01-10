@@ -27,42 +27,36 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.menuItems;
+package org.firstinspires.ftc.teamcode.control;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.TeleopController;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Robot;
 
 /**
- * This file illustrates the basic construction of a class to add an item to the driver station menu.
- *
- * Copy this file in android studio, then comment out the @Disabled line and change the name and
- * TeleopController constructor string to reflect the human and ccde names of your opmode reflectively.
+ * This file controls the timing of Robot.java methods during auto using data from menu classes.
  */
 
-@TeleOp(name="Teleop", group="Teleop")
-//@Disabled
-public class TeleopMenu extends LinearOpMode {
+public class TeleopController {
 
     /* Declare OpMode members. */
-    TeleopController teleopController;
+    Robot robotController;
 
-    @Override
+    public TeleopController(String callerName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2, HardwareMap hwmap) {
+        robotController = new Robot(callerName, telem, hwmap, gamepad1, gamepad2);
+    }
+
+    public void initOpMode() {
+        robotController.teleopInit();
+    }
+
     public void runOpMode() {
-        teleopController = new TeleopController("Teleop", telemetry, gamepad1, gamepad2, hardwareMap);
+        robotController.teleopExecute();
+    }
 
-        teleopController.initOpMode();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-            teleopController.runOpMode();
-        }
-
-        teleopController.stopOpMode();
+    public void stopOpMode() {
+        robotController.teleopEnd();
     }
 }
