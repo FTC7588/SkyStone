@@ -218,10 +218,10 @@ public class DriveTrainSubsystem {
         }
         //</editor-fold>
         //
-        frontleft.setPower(0);
-        frontright.setPower(0);
-        backleft.setPower(0);
-        backright.setPower(0);
+     //   frontleft.setPower(0);
+      //  frontright.setPower(0);
+       // backleft.setPower(0);
+       // backright.setPower(0);
     }
 
     /*
@@ -249,29 +249,29 @@ public class DriveTrainSubsystem {
         telemetry.addData("right motor", rightMotor + ", " + rightd);
         telemetry.update();
         //
-        frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // frontright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //backright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //
-        frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        //frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+       // backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       // backright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //
-        backright.setTargetPosition(backright.getCurrentPosition() + rightd);
-        backleft.setTargetPosition(backleft.getCurrentPosition() + leftd);
+       // backright.setTargetPosition(backright.getCurrentPosition() + rightd);
+        //backleft.setTargetPosition(backleft.getCurrentPosition() + leftd);
         //
-        frontleft.setPower(0);
-        frontright.setPower(0);
-        backleft.setPower(speed);
-        backright.setPower((rightMotor / leftMotor) * speed);
+        //frontleft.setPower(0);
+       // frontright.setPower(0);
+       // backleft.setPower(speed);
+        //backright.setPower((rightMotor / leftMotor) * speed);
         //
-        while (backleft.isBusy() && backright.isBusy()){}
+       // while (backleft.isBusy() && backright.isBusy()){}
         //
-        frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backright.setPower(0);
+        //frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // backright.setPower(0);
         return;
     }
 
@@ -301,15 +301,15 @@ public class DriveTrainSubsystem {
     encoder mode and begin turning.
      */
     public void turnWithEncoder(double input){
-        frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      //  frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       // frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       // backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //
-        frontleft.setPower(input);
-        frontright.setPower(-input);
-        backleft.setPower(input);
-        backright.setPower(-input);
+        //frontleft.setPower(input);
+        //frontright.setPower(-input);
+       // backleft.setPower(input);
+        //backright.setPower(-input);
     }
 
 }
