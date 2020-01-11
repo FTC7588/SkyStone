@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.IO;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Hardware;
 
@@ -14,51 +13,34 @@ public class GrabberSubsystem {
 
     Hardware hardware;
 
-    boolean bigGrabberClosed=true;
-    boolean smallGrabberClosed=true;
+    boolean grabberClosed =true;
 
     double          clawOffset      = 0;                       // Servo mid position
     final double    CLAW_SPEED      = 0.02 ;                   // sets rate to move servo
     final double    MID_SERVO       = .5;
 
-    public GrabberSubsystem(Telemetry telem, HardwareMap hwmap) {
+    public GrabberSubsystem(Telemetry telem, Hardware hardware) {
         telemetry = telem;
 
-        hardware = new Hardware();
-
-        hardware.init(hwmap);
+        this.hardware = hardware;
     }
 
-    public void toggleBigGrabber() {
-        if(bigGrabberClosed){
-           hardware.grabberBig.setPosition(1);
-           bigGrabberClosed = false;
+    public void toggleGrabber() {
+        if(grabberClosed){
+           hardware.grabber.setPosition(1);
+           grabberClosed = false;
 
         }
         else {
-            hardware.grabberBig.setPosition(0);
-            bigGrabberClosed = true;
+            hardware.grabber.setPosition(0);
+            grabberClosed = true;
         }
     }
-    public void setBigGrabberPosition (int grabberPosition) {
-        hardware.grabberBig.setPosition(grabberPosition);
-    }
-    public void toggleSmallGrabber() {
-        if(smallGrabberClosed){
-            hardware.grabberSmall.setPosition(1);
-            smallGrabberClosed = false;
-
-        }
-        else {
-            hardware.grabberSmall.setPosition(0);
-            smallGrabberClosed = true;
-        }
-    }
-    public void setSmallGrabberPosition (int grabberPosition) {
-        hardware.grabberSmall.setPosition(grabberPosition);
+    public void setGrabberPosition (int grabberPosition) {
+        hardware.grabber.setPosition(grabberPosition);
     }
 
-    public void rotGrabber(double amount) {
+    public void rotateGrabber(double amount) {
         // Use gamepad left & right Bumpers to open and close the claw
 
         amount = amount*CLAW_SPEED;

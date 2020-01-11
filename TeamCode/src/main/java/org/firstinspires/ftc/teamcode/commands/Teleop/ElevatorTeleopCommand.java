@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.commands.Teleop;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.teamcode.Hardware;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.IO;
@@ -12,8 +12,8 @@ public class ElevatorTeleopCommand {
     ElevatorSubsystem elevatorSubsystem;
     IO io;
 
-    public ElevatorTeleopCommand(Telemetry telem, HardwareMap hwmap, IO io) {
-        elevatorSubsystem = new ElevatorSubsystem(telem, hwmap);
+    public ElevatorTeleopCommand(Telemetry telem, ElevatorSubsystem elevatorSubsystem, IO io) {
+        this.elevatorSubsystem = elevatorSubsystem;
 
         this.io = io;
     }

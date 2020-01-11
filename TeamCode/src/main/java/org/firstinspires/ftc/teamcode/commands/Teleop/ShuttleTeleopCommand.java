@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.commands.Teleop;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -11,8 +11,8 @@ public class ShuttleTeleopCommand {
     ShuttleSubsystem shuttleSubsystem;
     IO io;
 
-    public ShuttleTeleopCommand(Telemetry telem, HardwareMap hwmap, IO io) {
-        shuttleSubsystem = new ShuttleSubsystem(telem, hwmap);
+    public ShuttleTeleopCommand(Telemetry telem, ShuttleSubsystem shuttleSubsystem, IO io) {
+        this.shuttleSubsystem = shuttleSubsystem;
 
         this.io = io;
     }

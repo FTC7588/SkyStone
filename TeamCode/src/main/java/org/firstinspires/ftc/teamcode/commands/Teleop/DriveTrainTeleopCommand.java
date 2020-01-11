@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.commands.Teleop;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,21 +12,21 @@ public class DriveTrainTeleopCommand {
     DriveTrainSubsystem driveTrainSubsystem;
     IO io;
 
-    public DriveTrainTeleopCommand(Telemetry telem, HardwareMap hwmap, IO io) {
-        driveTrainSubsystem = new DriveTrainSubsystem(telem, hwmap);
+    public DriveTrainTeleopCommand(Telemetry telem, DriveTrainSubsystem driveTrainSubsystem, IO io) {
+        this.driveTrainSubsystem = driveTrainSubsystem;
 
         this.io = io;
     }
 
     public void init(){
-        driveTrainSubsystem.arcadeDrive(0,0);
+        driveTrainSubsystem.swerveDrive(0,0,0);
     }
 
     public void execute() {
-        driveTrainSubsystem.arcadeDrive(io.drive(), -io.turn());
+        driveTrainSubsystem.swerveDrive(io.swerveStrafe(), io.swervepower(), io.swerveturn());
     }
 
     public void stop() {
-        driveTrainSubsystem.arcadeDrive(0,0);
+        driveTrainSubsystem.swerveDrive(0,0,0);
     }
 }

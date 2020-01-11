@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.commands.Auto;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -11,8 +11,8 @@ public class LeftArcAuto {
     DriveTrainSubsystem driveTrainSubsystem;
     IO io;
 
-    public LeftArcAuto(Telemetry telem, HardwareMap hwmap, IO io) {
-        driveTrainSubsystem = new DriveTrainSubsystem(telem, hwmap);
+    public LeftArcAuto(Telemetry telem, DriveTrainSubsystem driveTrainSubsystem, IO io) {
+        this.driveTrainSubsystem = driveTrainSubsystem;
 
         this.io = io;
     }

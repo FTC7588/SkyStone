@@ -12,6 +12,18 @@ public class IO {
         this.gamepad2 = gamepad2;
     }
 
+    public double swervepower() {
+        return gamepad1.left_stick_y;
+    }
+
+    public double swerveStrafe() {
+        return gamepad1.left_stick_x;
+    }
+
+    public double swerveturn() {
+        return gamepad1.right_stick_x;
+    }
+
     public double shuttlePower() {
         double power = -gamepad1.right_stick_y;
 

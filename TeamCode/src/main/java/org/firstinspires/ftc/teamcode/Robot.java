@@ -4,20 +4,30 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.commands.CrosslineAuto;
+import org.firstinspires.ftc.teamcode.commands.Auto.CrosslineAuto;
 import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.CstArray.List;
-import org.firstinspires.ftc.teamcode.commands.DriveTrainTeleopCommand;
-import org.firstinspires.ftc.teamcode.commands.ElevatorTeleopCommand;
-import org.firstinspires.ftc.teamcode.commands.FoundationMoverCommand;
-import org.firstinspires.ftc.teamcode.commands.GrabberCommand;
-import org.firstinspires.ftc.teamcode.commands.LeftArcAuto;
-import org.firstinspires.ftc.teamcode.commands.RightArcAuto;
-import org.firstinspires.ftc.teamcode.commands.ShuttleTeleopCommand;
-import org.firstinspires.ftc.teamcode.commands.TestAutoCommand;
+import org.firstinspires.ftc.teamcode.commands.Teleop.DriveTrainTeleopCommand;
+import org.firstinspires.ftc.teamcode.commands.Teleop.ElevatorTeleopCommand;
+import org.firstinspires.ftc.teamcode.commands.Teleop.FoundationMoverCommand;
+import org.firstinspires.ftc.teamcode.commands.Teleop.GrabberCommand;
+import org.firstinspires.ftc.teamcode.commands.Auto.LeftArcAuto;
+import org.firstinspires.ftc.teamcode.commands.Auto.RightArcAuto;
+import org.firstinspires.ftc.teamcode.commands.Teleop.ShuttleTeleopCommand;
+import org.firstinspires.ftc.teamcode.commands.Auto.TestAutoCommand;
+import org.firstinspires.ftc.teamcode.subsystems.DriveTrainSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.ElevatorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.GrabberSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.ShuttleSubsystem;
 
 public class Robot {
     String programName;
+
+    ElevatorSubsystem elevatorSubsystem;
+    DriveTrainSubsystem driveTrainSubsystem;
+    FoundationMoverSubsystem foundationMoverSubsystem;
+    GrabberSubsystem grabberSubsystem;
+    ShuttleSubsystem shuttleSubsystem;
 
     ShuttleTeleopCommand shuttleTeleopCommand;
     DriveTrainTeleopCommand driveTrainTeleopCommand;
@@ -35,23 +45,34 @@ public class Robot {
 
     IO io;
 
+    public Hardware hardware;
+
     public Robot(String callerName, Telemetry telem, HardwareMap hwmap, Gamepad gamepad1, Gamepad gamepad2) {
         programName = callerName;
 
+        hardware = new Hardware();
+
+        hardware.init(hwmap);
+
         io = new IO(gamepad1, gamepad2);
 
-        shuttleTeleopCommand = new ShuttleTeleopCommand(telem, hwmap, io);
-        driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, hwmap, io);
-        elevatorTeleopCommand = new ElevatorTeleopCommand(telem, hwmap, io);
-        foundationMoverCommand = new FoundationMoverCommand(telem, hwmap, io);
-        grabberCommand = new GrabberCommand(telem, hwmap, io);
+        elevatorSubsystem = new ElevatorSubsystem(telem, hardware);
+        driveTrainSubsystem = new DriveTrainSubsystem(telem, hardware);
+        shuttleSubsystem = new ShuttleSubsystem(telem, hardware);
+        foundationMoverSubsystem = new FoundationMoverSubsystem(telem, hardware);
+        grabberSubsystem = new GrabberSubsystem(telem, hardware);
 
-        testAutoCommand = new TestAutoCommand(telem, hwmap, io);
-        crosslineAuto = new CrosslineAuto(telem, hwmap, io);
-        grabberCommand = new GrabberCommand(telem, hwmap, io);
+        shuttleTeleopCommand = new ShuttleTeleopCommand(telem, shuttleSubsystem, io);
+        driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, driveTrainSubsystem, io);
+        elevatorTeleopCommand = new ElevatorTeleopCommand(telem, elevatorSubsystem, io);
+        foundationMoverCommand = new FoundationMoverCommand(telem, foundationMoverSubsystem, io);
+        grabberCommand = new GrabberCommand(telem, grabberSubsystem, io);
 
-        leftArcAuto = new LeftArcAuto(telem, hwmap, io);
-        rightArcAuto = new RightArcAuto(telem, hwmap, io);
+        testAutoCommand = new TestAutoCommand(telem, driveTrainSubsystem, io);
+        crosslineAuto = new CrosslineAuto(telem, driveTrainSubsystem, io);
+
+        leftArcAuto = new LeftArcAuto(telem, driveTrainSubsystem, io);
+        rightArcAuto = new RightArcAuto(telem, driveTrainSubsystem, io);
     }
 
     public void autoInit() {
@@ -66,6 +87,7 @@ public class Robot {
         }
     }
 
+    // Does not loop
     public void autoExecute() {
         if (programName == "Test Auto") {
             testAutoCommand.execute();
@@ -98,6 +120,7 @@ public class Robot {
         */
     }
 
+    // Loops
     public void teleopExecute() {
         shuttleTeleopCommand.execute();
         driveTrainTeleopCommand.execute();

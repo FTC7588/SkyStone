@@ -15,19 +15,17 @@ public class FoundationMoverSubsystem {
 
     boolean toggleFoundationGrabberClosed;
 
-    public FoundationMoverSubsystem(Telemetry telem, HardwareMap hwmap) {
+    public FoundationMoverSubsystem(Telemetry telem, Hardware hardware) {
         telemetry = telem;
 
         hardware = new Hardware();
 
-        hardware.init(hwmap);
+        this.hardware = hardware;
 
         toggleFoundationGrabberClosed = true;
     }
 
     public void setPosition(double position) {
-
-
         hardware.foundationGrabberLeft.setPosition(position);
         hardware.foundationGrabberRight.setPosition(position);
     }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.commands.Teleop;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,8 +12,8 @@ public class FoundationMoverCommand {
     FoundationMoverSubsystem foundationMoverSubsystem;
     IO io;
 
-    public FoundationMoverCommand(Telemetry telem, HardwareMap hwmap, IO io) {
-        foundationMoverSubsystem = new FoundationMoverSubsystem(telem, hwmap);
+    public FoundationMoverCommand(Telemetry telem, FoundationMoverSubsystem foundationMoverSubsystem, IO io) {
+        this.foundationMoverSubsystem = foundationMoverSubsystem;
 
         this.io = io;
     }

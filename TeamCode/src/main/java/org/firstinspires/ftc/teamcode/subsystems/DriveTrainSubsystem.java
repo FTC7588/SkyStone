@@ -11,7 +11,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Hardware;
-
+import org.firstinspires.ftc.teamcode.control.PIDController;
+import org.firstinspires.ftc.teamcode.control.SwerveDrive;
+import org.firstinspires.ftc.teamcode.control.WheelDrive;
 
 public class DriveTrainSubsystem {
 
@@ -19,10 +21,17 @@ public class DriveTrainSubsystem {
 
     Hardware hardware;
 
-    DcMotor frontleft;
-    DcMotor frontright;
-    DcMotor backleft;
-    DcMotor backright;
+    WheelDrive frontLeft;
+    WheelDrive frontRight;
+    WheelDrive backLeft;
+    WheelDrive backRight;
+
+    PIDController frontLeftPID;
+    PIDController frontRightPID;
+    PIDController backLeftPID;
+    PIDController backRightPID;
+
+    private SwerveDrive swerveDrive;
 
     //Calculate encoder conversion
     Double width = 18.0; //inches
@@ -40,113 +49,54 @@ public class DriveTrainSubsystem {
     Orientation angles;
     Acceleration gravity;
 
-    public DriveTrainSubsystem(Telemetry telem, HardwareMap hwmap) {
+    public DriveTrainSubsystem(Telemetry telem, Hardware hardware) {
         telemetry = telem;
 
         hardware = new Hardware();
 
-        hardware.init(hwmap);
+        this.hardware = hardware;
 
-        hardware.initGyro();
+        frontLeft = hardware.frontLeft;
+        frontRight = hardware.frontRight;
+        backLeft = hardware.backLeft;
+        backRight = hardware.backRight;
 
-        frontleft = hardware.frontLeftDrive;
-        frontright = hardware.frontRightDrive;
-        backleft = hardware.backLeftDrive;
-        backright = hardware.backRightDrive;
+        swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight);
+
+        backLeftPID.setOutputRange(-1,1);
+        backLeftPID.enable();
+        backRightPID.setOutputRange(-1,1);
+        backRightPID.enable();
+        frontLeftPID.setOutputRange(-1,1);
+        frontLeftPID.enable();
+        frontRightPID.setOutputRange(-1,1);
+        frontRightPID.enable();
 
         imu = hardware.imu;
         angles = hardware.angles;
         gravity = hardware.gravity;
     }
 
-    public void arcadeDrive(double drive, double turn) {
-
-       double left;
-       double right;
-       double max;
-
-        // Combine drive and turn for blended motion.
-        left  = drive - turn;
-        right = drive + turn;
-
-        // Normalize the values so neither exceed +/- 1.0
-        max = Math.max(Math.abs(left), Math.abs(right));
-        if (max > 1.0)
-        {
-            left /= max;
-            right /= max;
-        }
-
-        hardware.frontRightDrive.setPower(right);
-        hardware.backRightDrive.setPower(right);
-        hardware.frontLeftDrive.setPower(left);
-        hardware.backLeftDrive.setPower(left);
+    public void swerveDrive(double drive, double turn, double strafe) {
+        swerveDrive.drive(strafe, drive, turn);
     }
 
     /*
     This function's purpose is simply to drive forward or backward.
     To drive backward, simply make the inches input negative.
      */
-    public void moveToPosition(double inches, double speed){
-        frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //
-        if (inches < 5) {
-            int move = (int) (Math.round(inches * conversion));
-            //
-            frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
-            frontright.setTargetPosition(frontright.getCurrentPosition() + move);
-            backleft.setTargetPosition(backleft.getCurrentPosition() + move);
-            backright.setTargetPosition(backright.getCurrentPosition() + move);
-            //
-            frontleft.setPower(speed);
-            frontright.setPower(speed);
-            backleft.setPower(speed);
-            backright.setPower(speed);
-            //
-            while (frontleft.isBusy() && frontright.isBusy() && backleft.isBusy() && backright.isBusy()) {}
-            frontleft.setPower(0);
-            frontright.setPower(0);
-            backleft.setPower(0);
-            backright.setPower(0);
-        }else{
-            int move1 = (int)(Math.round((inches - 5) * conversion));
-            int movefl2 = frontleft.getCurrentPosition() + (int)(Math.round(inches * conversion));
-            int movefr2 = frontright.getCurrentPosition() + (int)(Math.round(inches * conversion));
-            int movebl2 = backleft.getCurrentPosition() + (int)(Math.round(inches * conversion));
-            int movebr2 = backright.getCurrentPosition() + (int)(Math.round(inches * conversion));
-            //
-            frontleft.setTargetPosition(frontleft.getCurrentPosition() + move1);
-            frontright.setTargetPosition(frontright.getCurrentPosition() + move1);
-            backleft.setTargetPosition(backleft.getCurrentPosition() + move1);
-            backright.setTargetPosition(backright.getCurrentPosition() + move1);
-            //
-            frontleft.setPower(speed);
-            frontright.setPower(speed);
-            backleft.setPower(speed);
-            backright.setPower(speed);
-            //
-            while (frontleft.isBusy() && frontright.isBusy() && backleft.isBusy() && backright.isBusy()) {}
-            //
-            frontleft.setTargetPosition(movefl2);
-            frontright.setTargetPosition(movefr2);
-            backleft.setTargetPosition(movebl2);
-            backright.setTargetPosition(movebr2);
-            //
-            frontleft.setPower(.1);
-            frontright.setPower(.1);
-            backleft.setPower(.1);
-            backright.setPower(.1);
-            //
-            while (frontleft.isBusy() && frontright.isBusy() && backleft.isBusy() && backright.isBusy()) {}
-            frontleft.setPower(0);
-            frontright.setPower(0);
-            backleft.setPower(0);
-            backright.setPower(0);
+    public void moveToPosition(double inches, double angle){
+        backLeftPID.setSetpoint(inches*conversion);
+        backRightPID.setSetpoint(inches*conversion);
+        frontLeftPID.setSetpoint(inches*conversion);
+        frontRightPID.setSetpoint(inches*conversion);
+
+        while (!backLeftPID.onTarget() || !backRightPID.onTarget() || !frontLeftPID.onTarget() || !frontRightPID.onTarget()) {
+            backLeft.drive(backLeftPID.performPID(hardware.rearLeftDrive.getCurrentPosition()), angle);
+            backRight.drive(backRightPID.performPID(hardware.rearRightDrive.getCurrentPosition()), angle);
+            frontLeft.drive(frontLeftPID.performPID(hardware.frontLeftDrive.getCurrentPosition()), angle);
+            frontRight.drive(frontRightPID.performPID(hardware.frontRightDrive.getCurrentPosition()), angle);
         }
-        return;
     }
 
     /*
