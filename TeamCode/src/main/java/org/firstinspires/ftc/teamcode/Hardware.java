@@ -81,10 +81,13 @@ public class Hardware
     public Servo grabber = null;
     public Servo rotGrabber = null;
 
+
     public CRServo rearLeftTurn;
     public CRServo rearRightTurn;
     public CRServo frontLeftTurn;
     public CRServo frontRightTurn;
+    public CRServo intakeLeft = null;
+    public CRServo intakeRight = null;
 
     public Encoder rearLeftEncoder;
     public Encoder rearRightEncoder;
@@ -197,7 +200,8 @@ public class Hardware
         rearRightTurn = hwMap.get(CRServo.class, "rearRightTurn");
         frontLeftTurn = hwMap.get(CRServo.class, "frontLeftTurn");
         frontRightTurn = hwMap.get(CRServo.class, "frontRightTurn");
-
+        intakeLeft = hwMap.get(CRServo.class, "intakeLeft");
+        intakeRight = hwMap.get(CRServo.class, "intakeRight");
         // Stop the turning Servos
         rearLeftTurn.setPower(0);
         rearRightTurn.setPower(0);

@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
@@ -88,7 +89,6 @@ public class SwerveHardware {
         rearRightTurn = hwMap.get(CRServo.class, "rearRightTurn");
         frontLeftTurn = hwMap.get(CRServo.class, "frontLeftTurn");
         frontRightTurn = hwMap.get(CRServo.class, "frontRightTurn");
-
         imu = hwMap.get(BNO055IMU.class, "imu");
 
         // Most robots need the motor on one side to be reversed to drive forward
