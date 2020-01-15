@@ -31,6 +31,8 @@ public class DriveTrainSubsystem {
     PIDController backLeftPID;
     PIDController backRightPID;
 
+    PIDController turnPID;
+
     private SwerveDrive swerveDrive;
 
     //Calculate encoder conversion
@@ -68,6 +70,8 @@ public class DriveTrainSubsystem {
         frontLeftPID = new PIDController(1,0,0);
         frontRightPID = new PIDController(1,0,0);
 
+        turnPID = new PIDController(1,0,0);
+
         backLeftPID.setOutputRange(-1,1);
         backLeftPID.enable();
         backRightPID.setOutputRange(-1,1);
@@ -76,6 +80,11 @@ public class DriveTrainSubsystem {
         frontLeftPID.enable();
         frontRightPID.setOutputRange(-1,1);
         frontRightPID.enable();
+
+        turnPID.setContinuous();
+        turnPID.setInputRange(-180,180);
+        turnPID.setOutputRange(-1,1);
+        turnPID.enable();
 
         imu = hardware.imu;
         angles = hardware.angles;
@@ -115,118 +124,32 @@ public class DriveTrainSubsystem {
         telemetry.addData("Speed Direction", speedDirection);
         telemetry.addData("Yaw", yaw);
         telemetry.update();
-        //
-        telemetry.addData("stuff", speedDirection);
-        telemetry.update();
-        //
-        double first;
-        double second;
-        //</editor-fold>
-        //
-        if (speedDirection > 0){//set target positions
-            //<editor-fold desc="turn right">
-            if (degrees > 20){
-                first = (degrees - 20) + devertify(yaw);
-                second = degrees + devertify(yaw);
-            }else{
-                first = devertify(yaw);
-                second = degrees + devertify(yaw);
-            }
-            //</editor-fold>
-        }else{
-            //<editor-fold desc="turn left">
-            if (degrees > 20){
-                first = devertify(-(degrees - 20) + devertify(yaw));
-                second = devertify(-degrees + devertify(yaw));
-            }else{
-                first = devertify(yaw);
-                second = devertify(-degrees + devertify(yaw));
-            }
-            //
-            //</editor-fold>
+
+        turnPID.setSetpoint(degrees);
+
+        turnPID.performPID(yaw);
+
+        backLeft.drive(backLeftPID.performPID(hardware.rearLeftDrive.getCurrentPosition()), -45);
+        backRight.drive(backRightPID.performPID(hardware.rearRightDrive.getCurrentPosition()), 45);
+        frontLeft.drive(frontLeftPID.performPID(hardware.frontLeftDrive.getCurrentPosition()), 45);
+        frontRight.drive(frontRightPID.performPID(hardware.frontRightDrive.getCurrentPosition()), -45);
+
+        while (!turnPID.onTarget()) {
+            angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            yaw = -angles.firstAngle;//make this negative
+            telemetry.addData("Speed Direction", speedDirection);
+            telemetry.addData("Yaw", yaw);
+            telemetry.update();
+
+            turnPID.setSetpoint(degrees);
+
+            double power = turnPID.performPID(yaw);
+
+            backLeft.drive(power, -45);
+            backRight.drive(power, 45);
+            frontLeft.drive(power, 45);
+            frontRight.drive(power, -45);
         }
-        //
-        //<editor-fold desc="Go to position">
-        Double firsta = convertify(first - 5);//175
-        Double firstb = convertify(first + 5);//-175
-        //
-        turnWithEncoder(speedDirection);
-        //
-        if (Math.abs(firsta - firstb) < 11) {
-
-            /**
-             * add opmode is active here
-             */
-
-            while (!(firsta < yaw && yaw < firstb)) {//within range?
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                gravity = imu.getGravity();
-                yaw = -angles.firstAngle;
-                telemetry.addData("Position", yaw);
-                telemetry.addData("first before", first);
-                telemetry.addData("first after", convertify(first));
-                telemetry.update();
-            }
-        }else{
-
-            /**
-             * add opmode is active
-             *
-             */
-
-            while (!((firsta < yaw && yaw < 180) || (-180 < yaw && yaw < firstb))) {//within range?
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                gravity = imu.getGravity();
-                yaw = -angles.firstAngle;
-                telemetry.addData("Position", yaw);
-                telemetry.addData("first before", first);
-                telemetry.addData("first after", convertify(first));
-                telemetry.update();
-            }
-        }
-        //
-        Double seconda = convertify(second - 5);//175
-        Double secondb = convertify(second + 5);//-175
-        //
-        turnWithEncoder(speedDirection / 3);
-        //
-        if (Math.abs(seconda - secondb) < 11) {
-
-            /**
-             * add opmode is active
-             */
-
-            while (!(seconda < yaw && yaw < secondb)) {//within range?
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                gravity = imu.getGravity();
-                yaw = -angles.firstAngle;
-                telemetry.addData("Position", yaw);
-                telemetry.addData("second before", second);
-                telemetry.addData("second after", convertify(second));
-                telemetry.update();
-            }
-        }else {
-
-            /**
-             * add opmode is active
-             */
-
-            while (!((seconda < yaw && yaw < 180) || (-180 < yaw && yaw < secondb))) {//within range?
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                gravity = imu.getGravity();
-                yaw = -angles.firstAngle;
-                telemetry.addData("Position", yaw);
-                telemetry.addData("second before", second);
-                telemetry.addData("second after", convertify(second));
-                telemetry.update();
-            }
-        }
-        //</editor-fold>
-        //
-        //frontleft.setPower(0);
-        //frontright.setPower(0);
-       // backleft.setPower(0);
-       // backright.setPower(0);
     }
 
     /*
