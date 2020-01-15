@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.Swerve;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -56,7 +57,7 @@ import org.firstinspires.ftc.teamcode.control.WheelDrive;
  */
 
 @TeleOp(name="Basic Swerve Teleop", group="Swerve")
-//@Disabled
+@Disabled
 public class SwerveTeleop extends OpMode
 {
     // Declare OpMode members.

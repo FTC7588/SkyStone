@@ -1,3 +1,0 @@
-C:/Users/forsr/Downloads/Repos/TeamCode/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/pathfinder.dir
-C:/Users/forsr/Downloads/Repos/TeamCode/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/edit_cache.dir
-C:/Users/forsr/Downloads/Repos/TeamCode/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/rebuild_cache.dir

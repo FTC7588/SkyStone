@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.menuItems.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.control.AutonomousController;
@@ -42,7 +43,7 @@ import org.firstinspires.ftc.teamcode.control.AutonomousController;
  */
 
 @Autonomous(name="Left Arc Auto", group="Auto")
-//@Disabled
+@Disabled
 public class LeftArcAutoMenu extends LinearOpMode {
 
     /* Declare OpMode members. */
