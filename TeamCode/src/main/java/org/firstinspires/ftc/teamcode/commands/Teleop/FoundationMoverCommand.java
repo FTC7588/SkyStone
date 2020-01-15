@@ -19,7 +19,7 @@ public class FoundationMoverCommand {
     }
 
     public void init(){
-        foundationMoverSubsystem.setPosition(.5);
+        foundationMoverSubsystem.setPosition(0);
     }
 
     public void execute() {

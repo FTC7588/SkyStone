@@ -23,7 +23,7 @@ public class DriveTrainTeleopCommand {
     }
 
     public void execute() {
-        driveTrainSubsystem.swerveDrive(io.swerveStrafe(), io.swervepower(), io.swerveturn());
+        driveTrainSubsystem.swerveDrive(io.swervepower(), io.swerveturn(), io.swerveStrafe());
     }
 
     public void stop() {

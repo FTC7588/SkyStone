@@ -155,7 +155,7 @@ public class DriveTrainSubsystem {
     This is our function for arcing, a special type of movement that allows for turning while moving.
     Use the angle and length to determine where the robot will end up.
      */
-    public void arc(Double angle, Double length, Double speed){
+    private void arc(Double angle, Double length, Double speed){
         //\frac{c*sin*(90-b)}{\sin2b}
         Double radius = ((length + arcBias) * Math.sin(Math.toRadians(90-angle)))/(Math.sin(Math.toRadians(2 * angle)));
         telemetry.addData("radius", radius);
@@ -205,13 +205,13 @@ public class DriveTrainSubsystem {
     These functions are used in the turnWithGyro function to ensure angle
     inputs are interpreted properly.
      */
-    public double devertify(double degrees){
+    private double devertify(double degrees){
         if (degrees < 0){
             degrees = degrees + 360;
         }
         return degrees;
     }
-    public double convertify(double degrees){
+    private double convertify(double degrees){
         if (degrees > 179){
             degrees = -(360 - degrees);
         } else if(degrees < -180){
@@ -226,7 +226,7 @@ public class DriveTrainSubsystem {
     This function is used in the turnWithGyro function to set the
     encoder mode and begin turning.
      */
-    public void turnWithEncoder(double input){
+    private void turnWithEncoder(double input){
         //frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

@@ -19,7 +19,7 @@ public class WheelDrive {
         this.turn = angleMotor;
         this.encoder = encoder;
 
-        pidController = new PIDController (.001, 0, 0);
+        pidController = new PIDController (.0015, 0, 0);
 
         pidController.setOutputRange(-1.0,1.0);
         pidController.setInputRange(-2048, 2048);
@@ -29,7 +29,7 @@ public class WheelDrive {
     public void drive (double speed, double angle) {
         pidController.enable();
 
-        drive.setPower(speed*.33);
+        drive.setPower(speed*.66);
 
         int setpoint = (int)(angle*countsPerDegree);
 

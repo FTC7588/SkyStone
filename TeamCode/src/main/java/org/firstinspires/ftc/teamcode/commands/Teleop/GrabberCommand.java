@@ -16,7 +16,7 @@ public class GrabberCommand {
 
     }
     public void init(){
-        grabberSubsystem.setGrabberPosition(0);
+        grabberSubsystem.setGrabberPosition(.85);
 
     }
 
