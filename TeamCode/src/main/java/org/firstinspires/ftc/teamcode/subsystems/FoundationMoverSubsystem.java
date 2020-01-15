@@ -18,8 +18,6 @@ public class FoundationMoverSubsystem {
     public FoundationMoverSubsystem(Telemetry telem, Hardware hardware) {
         telemetry = telem;
 
-        hardware = new Hardware();
-
         this.hardware = hardware;
 
         toggleFoundationGrabberClosed = true;
