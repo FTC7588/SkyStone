@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.commands.Teleop;
 
-        import com.qualcomm.robotcore.hardware.HardwareMap;
-
         import org.firstinspires.ftc.robotcore.external.Telemetry;
         import org.firstinspires.ftc.teamcode.IO;
         import org.firstinspires.ftc.teamcode.subsystems.GrabberSubsystem;
@@ -23,10 +21,7 @@ public class GrabberCommand {
     }
 
     public void execute() {
-        if (io.bigGrabberToggle()) {
-            grabberSubsystem.toggleGrabber();
-        }
-        if (io.smallGrabberToggle()) {
+        if (io.grabberToggle()) {
             grabberSubsystem.toggleGrabber();
         }
     }

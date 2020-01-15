@@ -30,18 +30,6 @@ public class IO {
         return power;
     }
 
-    public double turn() {
-        double power = gamepad1.left_stick_x;
-
-        return power;
-    }
-
-    public double drive() {
-        double power = -gamepad1.left_stick_y;
-
-        return power;
-    }
-
     public double elevator() {
         double power = -gamepad2.left_stick_y /2 +.05;
 
@@ -52,12 +40,8 @@ public class IO {
         return gamepad2.b;
     }
 
-    public boolean bigGrabberToggle() {
+    public boolean grabberToggle() {
         return gamepad1.right_bumper;
-    }
-
-    public boolean smallGrabberToggle() {
-        return gamepad2.y;
     }
 
     public double rotGrabberPositive() {
