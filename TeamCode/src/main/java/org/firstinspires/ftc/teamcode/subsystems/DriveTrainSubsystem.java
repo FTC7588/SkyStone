@@ -54,14 +54,12 @@ public class DriveTrainSubsystem {
     public DriveTrainSubsystem(Telemetry telem, Hardware hardware) {
         telemetry = telem;
 
-        hardware = new Hardware();
-
         this.hardware = hardware;
 
-        frontLeft = hardware.frontLeft;
-        frontRight = hardware.frontRight;
-        backLeft = hardware.backLeft;
-        backRight = hardware.backRight;
+        frontLeft = this.hardware.frontLeft;
+        frontRight = this.hardware.frontRight;
+        backLeft = this.hardware.backLeft;
+        backRight = this.hardware.backRight;
 
         swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight);
 
