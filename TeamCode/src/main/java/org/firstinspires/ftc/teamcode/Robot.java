@@ -12,12 +12,14 @@ import org.firstinspires.ftc.teamcode.commands.Teleop.FoundationMoverCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.GrabberCommand;
 import org.firstinspires.ftc.teamcode.commands.Auto.LeftArcAuto;
 import org.firstinspires.ftc.teamcode.commands.Auto.RightArcAuto;
+import org.firstinspires.ftc.teamcode.commands.Teleop.IntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.ShuttleTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.Auto.TestAutoCommand;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrainSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ElevatorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.GrabberSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ShuttleSubsystem;
 
 public class Robot {
@@ -28,6 +30,7 @@ public class Robot {
     FoundationMoverSubsystem foundationMoverSubsystem;
     GrabberSubsystem grabberSubsystem;
     ShuttleSubsystem shuttleSubsystem;
+    IntakeSubsystem intakeSubsystem;
 
     ShuttleTeleopCommand shuttleTeleopCommand;
     DriveTrainTeleopCommand driveTrainTeleopCommand;
@@ -35,6 +38,7 @@ public class Robot {
     FoundationMoverCommand foundationMoverCommand;
     LeftArcAuto leftArcAuto;
     RightArcAuto rightArcAuto;
+    IntakeCommand intakeCommand;
 
     TestAutoCommand testAutoCommand;
     CrosslineAuto crosslineAuto;
@@ -61,12 +65,14 @@ public class Robot {
         shuttleSubsystem = new ShuttleSubsystem(telem, hardware);
         foundationMoverSubsystem = new FoundationMoverSubsystem(telem, hardware);
         grabberSubsystem = new GrabberSubsystem(telem, hardware);
+        intakeSubsystem = new IntakeSubsystem(telem, hardware);
 
         shuttleTeleopCommand = new ShuttleTeleopCommand(telem, shuttleSubsystem, io);
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, driveTrainSubsystem, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, elevatorSubsystem, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, foundationMoverSubsystem, io);
         grabberCommand = new GrabberCommand(telem, grabberSubsystem, io);
+        intakeCommand = new IntakeCommand(telem, intakeSubsystem, io);
 
         testAutoCommand = new TestAutoCommand(telem, driveTrainSubsystem, io);
         crosslineAuto = new CrosslineAuto(telem, driveTrainSubsystem, io);
@@ -111,13 +117,15 @@ public class Robot {
         }
     }
 
-    public  void teleopInit() {
-       /* shuttleTeleopCommand.init();
+    public  void teleopInit() { }
+
+    public void teleopStart() {
+        shuttleTeleopCommand.init();
         driveTrainTeleopCommand.init();
         elevatorTeleopCommand.init();
         foundationMoverCommand.init();
         grabberCommand.init();
-        */
+        intakeCommand.init();
     }
 
     // Loops
@@ -127,6 +135,7 @@ public class Robot {
         elevatorTeleopCommand.execute();
         foundationMoverCommand.execute();
         grabberCommand.execute();
+        intakeCommand.execute();
     }
 
     public void teleopEnd() {
