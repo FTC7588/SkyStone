@@ -18,11 +18,20 @@ public class GrabberCommand {
     public void init(){
         grabberSubsystem.setGrabberPosition(.85);
 
+        grabberSubsystem.rotateGrabber(0);
     }
 
     public void execute() {
         if (io.grabberToggle()) {
             grabberSubsystem.toggleGrabber();
+        }
+
+        if (io.rotGrabberNegative() >= .2) {
+            grabberSubsystem.rotateGrabber(io.rotGrabberNegative());
+        } else if (io.rotGrabberPositive() >= .2) {
+            grabberSubsystem.rotateGrabber(-io.rotGrabberNegative());
+        } else {
+             grabberSubsystem.rotateGrabber(0);
         }
     }
 
