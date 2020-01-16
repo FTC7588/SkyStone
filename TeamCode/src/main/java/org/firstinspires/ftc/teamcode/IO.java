@@ -51,4 +51,12 @@ public class IO {
     public double rotGrabberNegative() {
         return gamepad2.left_trigger;
     }
+
+    public boolean intake() {
+        return gamepad2.a;
+    }
+
+    public boolean outTake() {
+        return gamepad2.y;
+    }
 }

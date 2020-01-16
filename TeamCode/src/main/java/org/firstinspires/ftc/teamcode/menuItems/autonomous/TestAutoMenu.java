@@ -43,7 +43,7 @@ import org.firstinspires.ftc.teamcode.control.AutonomousController;
  */
 
 @Autonomous(name="Test Auto", group="Menu Example")
-@Disabled
+//@Disabled
 public class TestAutoMenu extends LinearOpMode {
 
     /* Declare OpMode members. */

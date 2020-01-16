@@ -16,8 +16,9 @@ public class GrabberCommand {
 
     }
     public void init(){
-        grabberSubsystem.setGrabberPosition(1);
+        grabberSubsystem.setGrabberPosition(.85);
 
+        grabberSubsystem.rotateGrabber(0);
     }
 
     public void execute() {
@@ -25,10 +26,12 @@ public class GrabberCommand {
             grabberSubsystem.toggleGrabber();
         }
 
-        if(io.rotGrabberNegative() > .2) {
+        if (io.rotGrabberNegative() >= .2) {
             grabberSubsystem.rotateGrabber(io.rotGrabberNegative());
-        } else if(io.rotGrabberPositive() > .2) {
-            grabberSubsystem.rotateGrabber(io.rotGrabberPositive());
+        } else if (io.rotGrabberPositive() >= .2) {
+            grabberSubsystem.rotateGrabber(-io.rotGrabberNegative());
+        } else {
+             grabberSubsystem.rotateGrabber(0);
         }
     }
 

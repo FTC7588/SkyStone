@@ -18,14 +18,20 @@ public class TestAutoCommand {
     }
 
     public void init(){
-
+        driveTrainSubsystem.swerveDrive(0,0,0);
     }
 
     public void execute() {
-        driveTrainSubsystem.moveToPosition(30, 0.2);
+        driveTrainSubsystem.moveToPosition(30, 0);
+        driveTrainSubsystem.turnWithGyro(180, .5);
+        driveTrainSubsystem.moveToPosition(60, 0);
+        driveTrainSubsystem.moveToPosition(-30, 0);
+        driveTrainSubsystem.turnWithGyro(0, .5);
+        driveTrainSubsystem.moveToPosition(12, 90);
+        driveTrainSubsystem.moveToPosition(12, 180);
     }
 
     public void stop() {
-
+        driveTrainSubsystem.swerveDrive(0,0,0);
     }
 }

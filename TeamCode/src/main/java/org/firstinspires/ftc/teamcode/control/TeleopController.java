@@ -52,6 +52,10 @@ public class TeleopController {
         robotController.teleopInit();
     }
 
+    public void firstRun() {
+        robotController.teleopStart();
+    }
+
     public void runOpMode() {
         robotController.teleopExecute();
     }

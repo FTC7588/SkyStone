@@ -36,7 +36,7 @@ public class GrabberSubsystem {
             grabberClosed = true;
         }
     }
-    public void setGrabberPosition (int grabberPosition) {
+    public void setGrabberPosition (double grabberPosition) {
         hardware.grabber.setPosition(grabberPosition);
     }
 
