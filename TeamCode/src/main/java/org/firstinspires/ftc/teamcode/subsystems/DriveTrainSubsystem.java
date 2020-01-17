@@ -61,7 +61,7 @@ public class DriveTrainSubsystem {
         backLeft = this.hardware.backLeft;
         backRight = this.hardware.backRight;
 
-        swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight);
+        swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight, telemetry);
 
         backLeftPID = new PIDController(1,0,0);
         backRightPID = new PIDController(1,0,0);

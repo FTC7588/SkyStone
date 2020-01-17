@@ -14,7 +14,7 @@ public class ElevatorSubsystem {
     PIDController leftPID;
     PIDController rightPID;
 
-    double ticksToInch = 1024/(1.25*2*Math.PI);
+    double ticksToInch = (28*20)/(1*Math.PI);
 
     public ElevatorSubsystem(Telemetry telem, Hardware hardware) {
         telemetry = telem;

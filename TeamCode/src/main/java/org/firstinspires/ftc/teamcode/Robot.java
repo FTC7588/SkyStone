@@ -67,11 +67,11 @@ public class Robot {
         grabberSubsystem = new GrabberSubsystem(telem, hardware);
         intakeSubsystem = new IntakeSubsystem(telem, hardware);
 
-        shuttleTeleopCommand = new ShuttleTeleopCommand(telem, shuttleSubsystem, io);
+        shuttleTeleopCommand = new ShuttleTeleopCommand(telem, shuttleSubsystem, elevatorSubsystem, io);
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, driveTrainSubsystem, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, elevatorSubsystem, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, foundationMoverSubsystem, io);
-        grabberCommand = new GrabberCommand(telem, grabberSubsystem, io);
+        grabberCommand = new GrabberCommand(telem, grabberSubsystem, shuttleSubsystem, io);
         intakeCommand = new IntakeCommand(telem, intakeSubsystem, io);
 
         testAutoCommand = new TestAutoCommand(telem, driveTrainSubsystem, io);
@@ -144,7 +144,7 @@ public class Robot {
         elevatorTeleopCommand.stop();
         foundationMoverCommand.stop();
         grabberCommand.stop();
-
+        intakeCommand.execute();
     }
 
 }

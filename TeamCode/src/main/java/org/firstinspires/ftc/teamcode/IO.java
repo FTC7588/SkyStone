@@ -37,7 +37,7 @@ public class IO {
     }
 
     public boolean foundationGrabber() {
-        return gamepad2.b;
+        return gamepad2.x;
     }
 
     public boolean grabberToggle() {
