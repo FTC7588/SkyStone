@@ -32,7 +32,7 @@ public class GrabberSubsystem {
 
         }
         else {
-            hardware.grabber.setPosition(0);
+            hardware.grabber.setPosition(.85);
             grabberClosed = true;
         }
     }
@@ -45,12 +45,12 @@ public class GrabberSubsystem {
 
         amount = amount*CLAW_SPEED;
 
-        clawOffset += amount;
+        //clawOffset += amount;
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
-        clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        hardware.rotGrabber.setPosition(MID_SERVO + clawOffset);
-        hardware.rotGrabber.setPosition(MID_SERVO - clawOffset);
+        //clawOffset = Range.clip(clawOffset, -0.5, 0.5);
+        hardware.rotGrabber.setPosition(hardware.rotGrabber.getPosition() + amount);
+        hardware.rotGrabber.setPosition(hardware.rotGrabber.getPosition() - amount);
     }
 
 }

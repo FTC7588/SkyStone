@@ -12,11 +12,15 @@ public class SwerveDrive {
     public final double L = 17.5;
     public final double W = 16;
 
-    public SwerveDrive(WheelDrive backLeft, WheelDrive backRight, WheelDrive frontLeft, WheelDrive frontRight) {
+    private Telemetry telemetry;
+
+    public SwerveDrive(WheelDrive backLeft, WheelDrive backRight, WheelDrive frontLeft, WheelDrive frontRight, Telemetry telemetry) {
         this.backRight = backRight;
         this.backLeft = backLeft;
         this.frontRight = frontRight;
         this.frontLeft = frontLeft;
+
+        this.telemetry = telemetry;
     }
 
     public void drive(double x1, double y1, double x2) {
@@ -38,7 +42,7 @@ public class SwerveDrive {
         double frontRightAngle = Math.atan2 (b, d) / Math.PI;
         double frontLeftAngle = Math.atan2 (b, c) / Math.PI;
 
-        /**telemetry.addData("back left angle :", -backLeftAngle);
+        telemetry.addData("back left angle :", -backLeftAngle);
         telemetry.addData("back right angle :", -backRightAngle);
         telemetry.addData("front left angle :", -frontLeftAngle);
         telemetry.addData("front right angle :", -frontRightAngle);
@@ -48,7 +52,9 @@ public class SwerveDrive {
         telemetry.addData("back left speed :", backLeftSpeed);
         telemetry.addData("back right speed :", backRightSpeed);
         telemetry.addData("front left speed :", -frontLeftSpeed);
-        telemetry.addData("front right speed :", -frontRightSpeed);*/
+        telemetry.addData("front right speed :", -frontRightSpeed);
+
+        telemetry.update();
 
         backRight.drive (backRightSpeed, -backRightAngle);
         backLeft.drive (backLeftSpeed, -backLeftAngle);

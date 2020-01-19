@@ -14,7 +14,7 @@ public class ShuttleSubsystem {
 
     PIDController pid;
 
-    double ticksToInch = 1024/(1.25*2*Math.PI);
+    double ticksToInch = 288/(1.5*Math.PI);
 
     public ShuttleSubsystem(Telemetry telem, Hardware hardware) {
         telemetry = telem;

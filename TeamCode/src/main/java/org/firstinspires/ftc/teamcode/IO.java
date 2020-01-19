@@ -25,7 +25,7 @@ public class IO {
     }
 
     public double shuttlePower() {
-        double power = -gamepad1.right_stick_y;
+        double power = -gamepad2.right_stick_y;
 
         return power;
     }
@@ -37,7 +37,7 @@ public class IO {
     }
 
     public boolean foundationGrabber() {
-        return gamepad2.b;
+        return gamepad2.x;
     }
 
     public boolean grabberToggle() {

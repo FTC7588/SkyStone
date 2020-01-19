@@ -19,14 +19,12 @@ public class FoundationMoverCommand {
     }
 
     public void init(){
-        foundationMoverSubsystem.setPosition(0);
+        foundationMoverSubsystem.setPosition(.5);
     }
 
     public void execute() {
-
        if (io.foundationGrabber()){
            foundationMoverSubsystem.toggleFoundationGrabber();
-
        }
     }
 

@@ -11,9 +11,12 @@ public class DriveTrainTeleopCommand {
 
     DriveTrainSubsystem driveTrainSubsystem;
     IO io;
+    Telemetry telemetry;
 
     public DriveTrainTeleopCommand(Telemetry telem, DriveTrainSubsystem driveTrainSubsystem, IO io) {
         this.driveTrainSubsystem = driveTrainSubsystem;
+
+        this.telemetry = telem;
 
         this.io = io;
     }
