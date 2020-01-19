@@ -25,7 +25,7 @@ public class IO {
     }
 
     public double shuttlePower() {
-        double power = gamepad2.right_stick_y;
+        double power = -gamepad2.right_stick_y;
 
         return power;
     }

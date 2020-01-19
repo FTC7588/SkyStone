@@ -54,6 +54,8 @@ public class SwerveDrive {
         telemetry.addData("front left speed :", -frontLeftSpeed);
         telemetry.addData("front right speed :", -frontRightSpeed);
 
+        telemetry.update();
+
         backRight.drive (backRightSpeed, -backRightAngle);
         backLeft.drive (backLeftSpeed, -backLeftAngle);
         frontRight.drive (-frontRightSpeed, -frontRightAngle);

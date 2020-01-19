@@ -91,6 +91,11 @@ public class DriveTrainSubsystem {
 
     public void swerveDrive(double drive, double turn, double strafe) {
         swerveDrive.drive(strafe, drive, turn);
+
+        telemetry.addData("back left speed :", hardware.rearLeftEncoder.getAbsoluteTicks());
+        telemetry.addData("back right speed :", hardware.rearRightEncoder.getAbsoluteTicks());
+        telemetry.addData("front left speed :", hardware.frontLeftEncoder.getAbsoluteTicks());
+        telemetry.addData("front right speed :", hardware.frontRightEncoder.getAbsoluteTicks());
     }
 
     /*

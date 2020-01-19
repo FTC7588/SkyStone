@@ -40,7 +40,7 @@ public class GrabberCommand {
                 grabberSubsystem.rotateGrabber(0);
             }
         } else {
-            grabberSubsystem.setGrabberPosition(.5);
+            //grabberSubsystem.setGrabberPosition(.5);
         }
     }
 
