@@ -12,15 +12,15 @@ public class IO {
         this.gamepad2 = gamepad2;
     }
 
-    public double swervepower() {
+    public double meccPower() {
         return gamepad1.left_stick_y;
     }
 
-    public double swerveStrafe() {
+    public double meccStrafe() {
         return gamepad1.left_stick_x;
     }
 
-    public double swerveturn() {
+    public double meccTurn() {
         return gamepad1.right_stick_x;
     }
 

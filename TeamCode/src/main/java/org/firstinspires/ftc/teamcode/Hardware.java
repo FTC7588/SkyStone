@@ -71,33 +71,13 @@ public class Hardware
     public DcMotor  elevatorRight = null;
     public DcMotor  elevatorLeft = null;
 
-    private DcMotor rearLeftEncoderPort;
-    private DcMotor rearRightEncoderPort;
-    private DcMotor frontLeftEncoderPort;
-    private DcMotor frontRightEncoderPort;
-
     public Servo foundationGrabberLeft = null;
     public Servo foundationGrabberRight = null;
     public Servo grabber = null;
     public Servo rotGrabber = null;
 
-
-    public CRServo rearLeftTurn;
-    public CRServo rearRightTurn;
-    public CRServo frontLeftTurn;
-    public CRServo frontRightTurn;
     public CRServo intakeLeft = null;
     public CRServo intakeRight = null;
-
-    public Encoder rearLeftEncoder;
-    public Encoder rearRightEncoder;
-    public Encoder frontLeftEncoder;
-    public Encoder frontRightEncoder;
-
-    public WheelDrive backRight;
-    public WheelDrive backLeft;
-    public WheelDrive frontRight;
-    public WheelDrive frontLeft;
 
     public BNO055IMU imu;
     public Orientation angles;
@@ -122,12 +102,6 @@ public class Hardware
         frontRightDrive = hwMap.get(DcMotor.class, "frontRightDrive");
         frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
 
-        // Encoders
-        rearLeftEncoderPort = hwMap.get(DcMotor.class, "rearLeftEncoderPort");
-        rearRightEncoderPort = hwMap.get(DcMotor.class, "rearRightEncoderPort");
-        frontLeftEncoderPort = hwMap.get(DcMotor.class, "frontLeftEncoderPort");
-        frontRightEncoderPort = hwMap.get(DcMotor.class, "frontRightEncoderPort");
-
         elevatorLeft   = hwMap.get(DcMotor.class, "elevatorLeft");
         elevatorRight  = hwMap.get(DcMotor.class, "elevatorRight");
 
@@ -151,13 +125,6 @@ public class Hardware
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
 
-        // Stop Encoder ports
-        // This isn't really necessary
-        rearLeftEncoderPort.setPower(0);
-        rearRightEncoderPort.setPower(0);
-        frontLeftEncoderPort.setPower(0);
-        frontRightEncoderPort.setPower(0);
-
         elevatorRight.setPower(0);
         elevatorLeft.setPower(0);
 
@@ -174,21 +141,9 @@ public class Hardware
 
         shuttleDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        rearLeftEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rearRightEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontLeftEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRightEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         elevatorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         elevatorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         shuttleDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        rearLeftEncoder = new Encoder(rearLeftEncoderPort, 4096);
-        rearRightEncoder = new Encoder(rearRightEncoderPort, 4096);
-        frontLeftEncoder = new Encoder(frontLeftEncoderPort, 4096);
-        frontRightEncoder = new Encoder(frontRightEncoderPort, 4096);
-
-
 
         // Define and initialize ALL installed servos.
         foundationGrabberLeft  = hwMap.get(Servo.class, "foundationLeft");
@@ -196,24 +151,8 @@ public class Hardware
         grabber = hwMap.get(Servo.class, "grabber");
         rotGrabber = hwMap.get(Servo.class, "grabberRotator");
 
-        rearLeftTurn = hwMap.get(CRServo.class, "rearLeftTurn");
-        rearRightTurn = hwMap.get(CRServo.class, "rearRightTurn");
-        frontLeftTurn = hwMap.get(CRServo.class, "frontLeftTurn");
-        frontRightTurn = hwMap.get(CRServo.class, "frontRightTurn");
         intakeLeft = hwMap.get(CRServo.class, "intakeLeft");
         intakeRight = hwMap.get(CRServo.class, "intakeRight");
-        // Stop the turning Servos
-        rearLeftTurn.setPower(0);
-        rearRightTurn.setPower(0);
-        frontLeftTurn.setPower(0);
-        frontRightTurn.setPower(0);
-
-
-
-        backLeft = new WheelDrive(rearLeftTurn, rearLeftDrive, rearLeftEncoder);
-        backRight = new WheelDrive(rearRightTurn, rearRightDrive, rearRightEncoder);
-        frontLeft = new WheelDrive(frontLeftTurn, frontLeftDrive, frontLeftEncoder);
-        frontRight = new WheelDrive(frontRightTurn, frontRightDrive, frontRightEncoder);
     }
 
     public void initGyro() {
@@ -239,18 +178,6 @@ public class Hardware
         rearRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
-
-    public void resetTurnEncoeders() {
-        rearLeftEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rearRightEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeftEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRightEncoderPort.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        rearLeftEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rearRightEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontLeftEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRightEncoderPort.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void resetElevatorEncoders(){

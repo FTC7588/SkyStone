@@ -19,14 +19,14 @@ public class DriveTrainTeleopCommand {
     }
 
     public void init(){
-        driveTrainSubsystem.swerveDrive(0,0,0);
+        driveTrainSubsystem.meccanumDrive(0,0,0);
     }
 
     public void execute() {
-        driveTrainSubsystem.swerveDrive(io.swervepower(), io.swerveturn(), io.swerveStrafe());
+        driveTrainSubsystem.meccanumDrive(io.meccPower(), io.meccTurn(), io.meccStrafe());
     }
 
     public void stop() {
-        driveTrainSubsystem.swerveDrive(0,0,0);
+        driveTrainSubsystem.meccanumDrive(0,0,0);
     }
 }
