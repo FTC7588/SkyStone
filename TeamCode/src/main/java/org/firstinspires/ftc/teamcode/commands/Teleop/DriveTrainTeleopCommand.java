@@ -23,10 +23,13 @@ public class DriveTrainTeleopCommand {
 
     public void init(){
         driveTrainSubsystem.meccanumDrive(0,0,0);
+
+        driveTrainSubsystem.initGyro();
     }
 
     public void execute() {
-        driveTrainSubsystem.meccanumDrive(io.meccPower(), io.meccTurn(), io.meccStrafe());
+        //driveTrainSubsystem.meccanumDrive(io.meccTurn(), io.meccStrafe(), io.meccPower());
+        driveTrainSubsystem.meccanumDrive(io.meccStrafe(), io.meccPower(), io.meccTurn());
     }
 
     public void stop() {

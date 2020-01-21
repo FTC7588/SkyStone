@@ -268,7 +268,7 @@ public class PIDController
      */
     public boolean onTarget()
     {
-        return (Math.abs(m_error) < Math.abs(m_tolerance / 100.0 * (m_maximumInput - m_minimumInput)));
+        return (Math.abs(m_input) > m_setpoint-Math.abs(m_tolerance / 100.0)* m_setpoint) && (Math.abs(m_input) < m_setpoint+Math.abs(m_tolerance / 100.0)* m_setpoint);
     }
 
     /**

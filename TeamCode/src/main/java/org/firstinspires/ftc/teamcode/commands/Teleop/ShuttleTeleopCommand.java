@@ -13,11 +13,15 @@ public class ShuttleTeleopCommand {
     ElevatorSubsystem elevatorSubsystem;
     IO io;
 
+    Telemetry telemetry;
+
     public ShuttleTeleopCommand(Telemetry telem, ShuttleSubsystem shuttleSubsystem, ElevatorSubsystem elevatorSubsystem, IO io) {
         this.shuttleSubsystem = shuttleSubsystem;
         this.elevatorSubsystem = elevatorSubsystem;
 
         this.io = io;
+
+        this.telemetry = telem;
     }
 
     public void init(){
@@ -33,6 +37,9 @@ public class ShuttleTeleopCommand {
         } else {
             shuttleSubsystem.setPower(0);
         }
+
+        telemetry.addData("Shuttle Dist", shuttleSubsystem.getCurrentHieght());
+        telemetry.update();
     }
 
     public void stop() {

@@ -13,7 +13,7 @@ public class IO {
     }
 
     public double meccPower() {
-        return gamepad1.left_stick_y;
+        return -gamepad1.left_stick_y;
     }
 
     public double meccStrafe() {
@@ -31,7 +31,7 @@ public class IO {
     }
 
     public double elevator() {
-        double power = -gamepad2.left_stick_y /2 +.05;
+        double power = -gamepad2.left_stick_y /2 +.01;
 
         return power;
     }
@@ -41,7 +41,7 @@ public class IO {
     }
 
     public boolean grabberToggle() {
-        return gamepad1.right_bumper;
+        return gamepad1.a;
     }
 
     public double rotGrabberPositive() {

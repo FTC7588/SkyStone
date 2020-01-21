@@ -30,9 +30,9 @@ public class DriveTrainSubsystem {
     Double width = 18.0; //inches
     Integer cpr = 28; //counts per rotation
     Integer gearratio = 20;
-    Double diameter = 4.125;
+    Double diameter = 3.0;
     Double cpi = (cpr * gearratio)/(Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
-    Double bias = 0.8;//default 0.8
+    Double bias = 0.85;//default 0.8
     Double meccyBias = 0.9;//change to adjust only strafing movement
     //
     Double conversion = cpi * bias;
@@ -71,7 +71,7 @@ public class DriveTrainSubsystem {
 
         double heading = angles.firstAngle;
 
-        jTheta = Math.toDegrees(Math.atan2(-leftY,leftX));
+        /**jTheta = Math.toDegrees(Math.atan2(-leftY,leftX));
         jp = Math.sqrt(leftX * leftX + leftY * leftY);
         if (jp > 1)
             jp = 1;
@@ -79,7 +79,12 @@ public class DriveTrainSubsystem {
         fl = (Math.sin(theta) + Math.cos(theta)) * jp / 2 + rightX;
         fr = (Math.sin(theta) - Math.cos(theta)) * jp / 2 - rightX;
         bl = (Math.sin(theta) - Math.cos(theta)) * jp / 2 + rightX;
-        br = (Math.sin(theta) + Math.cos(theta)) * jp / 2 - rightX;
+        br = (Math.sin(theta) + Math.cos(theta)) * jp / 2 - rightX;*/
+
+        fl = leftY+leftX+rightX;
+        fr = leftY-leftX-rightX;
+        bl = leftY-leftX+rightX;
+        br = leftY+leftX-rightX;
 
         frontleft.setPower(fl);
         frontright.setPower(fr);
@@ -125,6 +130,87 @@ public class DriveTrainSubsystem {
         backleft.setPower(0);
         return;
     }
+
+    /*
+   This function's purpose is simply to drive forward or backward.
+   To drive backward, simply make the inches input negative.
+    */
+    public void moveToPositionPID(double inches, double maxSpeed){
+        //
+        int move = (int)(Math.round(inches*conversion));
+        //
+
+        telemetry.addData("move: ", move);
+
+        PIDController backLeftPID = new PIDController(.01,0,0);
+        PIDController backRightPID = new PIDController(.01,0,0);
+        PIDController frontLeftPID = new PIDController(.01,0,0);
+        PIDController frontRightPID = new PIDController(.01,0,0);
+
+        backLeftPID.setSetpoint(backleft.getCurrentPosition() + move);
+        frontLeftPID.setSetpoint(frontleft.getCurrentPosition() + move);
+        backRightPID.setSetpoint(backright.getCurrentPosition() + move);
+        frontRightPID.setSetpoint(frontright.getCurrentPosition() + move);
+        //
+        frontLeftPID.setTolerance(5);
+        frontRightPID.setTolerance(5);
+        backLeftPID.setTolerance(5);
+        backRightPID.setTolerance(5);
+
+        frontLeftPID.setOutputRange(-maxSpeed, maxSpeed);
+        frontRightPID.setOutputRange(-maxSpeed, maxSpeed);
+        backLeftPID.setOutputRange(-maxSpeed, maxSpeed);
+        backRightPID.setOutputRange(-maxSpeed, maxSpeed);
+
+        frontLeftPID.enable();
+        frontRightPID.enable();
+        backLeftPID.enable();
+        backRightPID.enable();
+        //
+        frontleft.setPower(frontLeftPID.performPID(frontleft.getCurrentPosition()));
+        backleft.setPower(backLeftPID.performPID(backleft.getCurrentPosition()));
+        frontright.setPower(frontRightPID.performPID(frontright.getCurrentPosition()));
+        backright.setPower(backRightPID.performPID(backright.getCurrentPosition()));
+        //
+
+        telemetry.addData("","");
+        telemetry.addData("front left :", frontleft.getCurrentPosition());
+        telemetry.addData("front right :", frontright.getCurrentPosition());
+        telemetry.addData("back left :", backleft.getCurrentPosition());
+        telemetry.addData("back right :", backright.getCurrentPosition());
+        telemetry.addData("","");
+        telemetry.addData("front left :", frontLeftPID.performPID(frontleft.getCurrentPosition()));
+        telemetry.addData("front right :", backLeftPID.performPID(frontright.getCurrentPosition()));
+        telemetry.addData("rear left :", frontRightPID.performPID(backleft.getCurrentPosition()));
+        telemetry.addData("back right :", backRightPID.performPID(backright.getCurrentPosition()));
+        telemetry.update();
+
+
+        while (!frontLeftPID.onTarget() && !backLeftPID.onTarget() && !frontRightPID.onTarget() && !backRightPID.onTarget()){
+            frontleft.setPower(frontLeftPID.performPID(frontleft.getCurrentPosition()));
+            backleft.setPower(backLeftPID.performPID(backleft.getCurrentPosition()));
+            frontright.setPower(frontRightPID.performPID(frontright.getCurrentPosition()));
+            backright.setPower(backRightPID.performPID(backright.getCurrentPosition()));
+
+            telemetry.addData("","");
+            telemetry.addData("front left :", frontleft.getCurrentPosition());
+            telemetry.addData("front right :", frontright.getCurrentPosition());
+            telemetry.addData("back left :", backleft.getCurrentPosition());
+            telemetry.addData("back right :", backright.getCurrentPosition());
+            telemetry.addData("","");
+            telemetry.addData("front left :", frontLeftPID.performPID(frontleft.getCurrentPosition()));
+            telemetry.addData("front right :", backLeftPID.performPID(frontright.getCurrentPosition()));
+            telemetry.addData("rear left :", frontRightPID.performPID(backleft.getCurrentPosition()));
+            telemetry.addData("back right :", backRightPID.performPID(backright.getCurrentPosition()));
+            telemetry.update();
+        }
+        frontright.setPower(0);
+        frontleft.setPower(0);
+        backright.setPower(0);
+        backleft.setPower(0);
+        return;
+    }
+
     //
     /*
     This function uses the Expansion Hub IMU Integrated Gyro to turn a precise number of degrees (+/- 5).
@@ -132,7 +218,6 @@ public class DriveTrainSubsystem {
      */
     public void turnWithGyro(double degrees, double speedDirection){
         //<editor-fold desc="Initialize">
-        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double yaw = -angles.firstAngle;//make this negative
         telemetry.addData("Speed Direction", speedDirection);
         telemetry.addData("Yaw", yaw);
@@ -237,6 +322,47 @@ public class DriveTrainSubsystem {
         backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+
+    /*
+    This function uses the Expansion Hub IMU Integrated Gyro to turn a precise number of degrees (+/- 5).
+    Degrees should always be positive, make speedDirection negative to turn left.
+     */
+    public void turnWithGyroPID(double degrees, double speedDirection){
+        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double yaw = -angles.firstAngle;//make this negative
+        telemetry.addData("Speed Direction", speedDirection);
+        telemetry.addData("Yaw", yaw);
+        telemetry.update();
+        //
+        telemetry.addData("stuff", speedDirection);
+        telemetry.update();
+
+        PIDController turnPID = new PIDController(1,0,0);
+
+        turnPID.setTolerance(5);
+        turnPID.setContinuous(true);
+        turnPID.setInputRange(-180,180);
+        turnPID.setSetpoint(degrees);
+        turnPID.enable();
+
+        double turnPower = turnPID.performPID(angles.firstAngle);
+
+        backleft.setPower(turnPower);
+        frontleft.setPower(turnPower);
+        backright.setPower(-turnPower);
+        frontright.setPower(-turnPower);
+
+        while (!turnPID.onTarget()) {
+            turnPower = turnPID.performPID(angles.firstAngle);
+
+            backleft.setPower(turnPower);
+            frontleft.setPower(turnPower);
+            backright.setPower(-turnPower);
+            frontright.setPower(-turnPower);
+        }
+
+    }
+
     //
     /*
     This function uses the encoders to strafe left or right.
@@ -296,6 +422,8 @@ public class DriveTrainSubsystem {
      */
     public void initGyro(){
         hardware.initGyro();
+        angles = hardware.angles;
+        gravity = hardware.gravity;
     }
     //
     /*

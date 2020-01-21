@@ -39,6 +39,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.control.Encoder;
 import org.firstinspires.ftc.teamcode.control.WheelDrive;
@@ -80,8 +83,8 @@ public class Hardware
     public CRServo intakeRight = null;
 
     public BNO055IMU imu;
-    public Orientation angles;
-    public Acceleration gravity;
+    public Orientation angles = new Orientation();
+    public Acceleration gravity = new Acceleration();
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -166,6 +169,12 @@ public class Hardware
 
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
+
+        while (!imu.isGyroCalibrated()) {
+        }
+
+        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        gravity  = imu.getGravity();
     }
 
     public void resetDriveEncoders() {

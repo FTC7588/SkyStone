@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.Auto.CrosslineAuto;
 import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.CstArray.List;
+import org.firstinspires.ftc.teamcode.commands.Auto.TestAutoPIDCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.DriveTrainTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.ElevatorTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.FoundationMoverCommand;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.commands.Auto.RightArcAuto;
 import org.firstinspires.ftc.teamcode.commands.Teleop.IntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.ShuttleTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.Auto.TestAutoCommand;
+import org.firstinspires.ftc.teamcode.menuItems.autonomous.TestPIDAutoMenu;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrainSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ElevatorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
@@ -39,6 +41,7 @@ public class Robot {
     LeftArcAuto leftArcAuto;
     RightArcAuto rightArcAuto;
     IntakeCommand intakeCommand;
+    TestAutoPIDCommand testPIDAutoPIDCommand;
 
     TestAutoCommand testAutoCommand;
     CrosslineAuto crosslineAuto;
@@ -74,6 +77,7 @@ public class Robot {
         grabberCommand = new GrabberCommand(telem, grabberSubsystem, shuttleSubsystem, io);
         intakeCommand = new IntakeCommand(telem, intakeSubsystem, io);
 
+        testPIDAutoPIDCommand = new TestAutoPIDCommand(telem, driveTrainSubsystem, io);
         testAutoCommand = new TestAutoCommand(telem, driveTrainSubsystem, io);
         crosslineAuto = new CrosslineAuto(telem, driveTrainSubsystem, io);
 
@@ -90,6 +94,8 @@ public class Robot {
             leftArcAuto.init();
         } else if (programName == "Right Arc Auto") {
             rightArcAuto.init();
+        } else if (programName == "Test PID Auto") {
+            testPIDAutoPIDCommand.init();
         }
     }
 
@@ -103,8 +109,11 @@ public class Robot {
             leftArcAuto.execute();
         } else if (programName == "Right Arc Auto") {
             rightArcAuto.execute();
+        } else if (programName == "Test PID Auto") {
+            testPIDAutoPIDCommand.execute();
         }
     }
+
     public void autoEnd () {
         if (programName == "Test Auto") {
             testAutoCommand.stop();
@@ -114,6 +123,8 @@ public class Robot {
             leftArcAuto.stop();
         } else if (programName == "Right Arc Auto") {
             rightArcAuto.stop();
+        } else if (programName == "Test PID Auto") {
+            testPIDAutoPIDCommand.stop();
         }
     }
 
@@ -146,5 +157,4 @@ public class Robot {
         grabberCommand.stop();
         intakeCommand.execute();
     }
-
 }

@@ -11,11 +11,14 @@ public class ElevatorTeleopCommand {
 
     ElevatorSubsystem elevatorSubsystem;
     IO io;
+    Telemetry telemetry;
 
     public ElevatorTeleopCommand(Telemetry telem, ElevatorSubsystem elevatorSubsystem, IO io) {
         this.elevatorSubsystem = elevatorSubsystem;
 
         this.io = io;
+
+        this.telemetry = telem;
     }
 
     public void init(){
@@ -24,6 +27,8 @@ public class ElevatorTeleopCommand {
 
     public void execute() {
        elevatorSubsystem.setPower(io.elevator());
+
+       telemetry.addData("Elevator Hieght", elevatorSubsystem.getCurrentHieght());
     }
 
     public void stop() {

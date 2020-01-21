@@ -20,9 +20,9 @@ public class GrabberCommand {
 
     }
     public void init(){
-        grabberSubsystem.setGrabberPosition(.85);
+        grabberSubsystem.setGrabberPosition(.65);
 
-        grabberSubsystem.rotateGrabber(0);
+        //grabberSubsystem.rotateGrabber(0);
     }
 
     public void execute() {
@@ -30,17 +30,18 @@ public class GrabberCommand {
             grabberSubsystem.toggleGrabber();
         }
 
+        //grabberSubsystem.rotateGrabber(io.rotGrabberPositive());
 
         if (shuttleSubsystem.getCurrentHieght() >= 12 || true) {
-            if (io.rotGrabberNegative() >= .2) {
+            if (io.rotGrabberNegative() >= .001) {
                 grabberSubsystem.rotateGrabber(io.rotGrabberNegative());
-            } else if (io.rotGrabberPositive() >= .2) {
-                grabberSubsystem.rotateGrabber(-io.rotGrabberNegative());
+            } else if (io.rotGrabberPositive() >= .001) {
+                grabberSubsystem.rotateGrabber(-io.rotGrabberPositive());
             } else {
                 grabberSubsystem.rotateGrabber(0);
             }
         } else {
-            //grabberSubsystem.setGrabberPosition(.5);
+            grabberSubsystem.setGrabberPosition(.5);
         }
     }
 
