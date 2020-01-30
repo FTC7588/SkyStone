@@ -22,11 +22,11 @@ public class LeftArcAuto {
     }
 
     public void execute() {
-        driveTrainSubsystem.moveToPosition(25.4, 0.2);
+        //driveTrainSubsystem.moveToPosition(25.4, 0.2);
         //
-        driveTrainSubsystem.turnWithGyro(90, 0.2);
+        //driveTrainSubsystem.turnWithGyro(90, 0.2);
         //
-        driveTrainSubsystem.moveToPosition(32.6, 0.2);
+        //driveTrainSubsystem.moveToPosition(32.6, 0.2);
     }
 
     public void stop() {
