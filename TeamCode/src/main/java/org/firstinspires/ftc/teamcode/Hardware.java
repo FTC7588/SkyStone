@@ -79,8 +79,7 @@ public class Hardware
     public Servo grabber = null;
     public Servo rotGrabber = null;
 
-    public CRServo intakeLeft = null;
-    public CRServo intakeRight = null;
+    public DcMotor intake = null;
 
     public BNO055IMU imu;
     public Orientation angles = new Orientation();
@@ -154,8 +153,7 @@ public class Hardware
         grabber = hwMap.get(Servo.class, "grabber");
         rotGrabber = hwMap.get(Servo.class, "grabberRotator");
 
-        intakeLeft = hwMap.get(CRServo.class, "intakeLeft");
-        intakeRight = hwMap.get(CRServo.class, "intakeRight");
+        intake = hwMap.get(DcMotor.class, "intake");
     }
 
     public void initGyro() {

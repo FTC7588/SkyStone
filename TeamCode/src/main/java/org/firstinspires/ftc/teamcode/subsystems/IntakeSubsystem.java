@@ -25,7 +25,6 @@ public class IntakeSubsystem {
     }
 
     public void setpower (double power) {
-        hardware.intakeLeft.setPower(power);
-        hardware.intakeRight.setPower(-power);
+        hardware.intake.setPower(power);
     }
 }
