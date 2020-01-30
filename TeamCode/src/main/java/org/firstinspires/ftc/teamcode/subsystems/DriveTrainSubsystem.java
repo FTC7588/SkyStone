@@ -96,7 +96,7 @@ public class DriveTrainSubsystem {
    This function's purpose is simply to drive forward or backward.
    To drive backward, simply make the inches input negative.
     */
-    public void moveToPosition(double inches, double speed){
+    private void moveToPosition(double inches, double speed){
         //
         int move = (int)(Math.round(inches*conversion));
         //
@@ -216,7 +216,7 @@ public class DriveTrainSubsystem {
     This function uses the Expansion Hub IMU Integrated Gyro to turn a precise number of degrees (+/- 5).
     Degrees should always be positive, make speedDirection negative to turn left.
      */
-    public void turnWithGyro(double degrees, double speedDirection){
+    private void turnWithGyro(double degrees, double speedDirection){
         //<editor-fold desc="Initialize">
         double yaw = -angles.firstAngle;//make this negative
         telemetry.addData("Speed Direction", speedDirection);
@@ -327,7 +327,7 @@ public class DriveTrainSubsystem {
     This function uses the Expansion Hub IMU Integrated Gyro to turn a precise number of degrees (+/- 5).
     Degrees should always be positive, make speedDirection negative to turn left.
      */
-    public void turnWithGyroPID(double degrees, double speedDirection){
+    private void turnWithGyroPID(double degrees, double speedDirection){
         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double yaw = -angles.firstAngle;//make this negative
         telemetry.addData("Speed Direction", speedDirection);
@@ -368,7 +368,7 @@ public class DriveTrainSubsystem {
     This function uses the encoders to strafe left or right.
     Negative input for inches results in left strafing.
      */
-    public void strafeToPosition(double inches, double speed){
+    private void strafeToPosition(double inches, double speed){
         //
         int move = (int)(Math.round(inches * cpi * meccyBias));
         //
@@ -399,13 +399,13 @@ public class DriveTrainSubsystem {
     These functions are used in the turnWithGyro function to ensure inputs
     are interpreted properly.
      */
-    public double devertify(double degrees){
+    private double devertify(double degrees){
         if (degrees < 0){
             degrees = degrees + 360;
         }
         return degrees;
     }
-    public double convertify(double degrees){
+    private double convertify(double degrees){
         if (degrees > 179){
             degrees = -(360 - degrees);
         } else if(degrees < -180){
@@ -430,7 +430,7 @@ public class DriveTrainSubsystem {
     This function is used in the turnWithGyro function to set the
     encoder mode and turn.
      */
-    public void turnWithEncoder(double input){
+    private void turnWithEncoder(double input){
         frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

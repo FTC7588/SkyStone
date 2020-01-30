@@ -30,8 +30,6 @@ public class TestAutoPIDCommand {
         telemetry.update();
 
         driveTrainSubsystem.moveToPositionPID(10, .5);
-
-        driveTrainSubsystem.turnWithGyroPID(90, -.5);
     }
 
     public void stop() {

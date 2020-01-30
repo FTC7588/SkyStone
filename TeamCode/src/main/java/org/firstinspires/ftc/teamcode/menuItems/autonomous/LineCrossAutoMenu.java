@@ -43,7 +43,7 @@ import org.firstinspires.ftc.teamcode.control.AutonomousController;
  */
 
 @Autonomous(name="Line Cross Auto", group="Auto")
-@Disabled
+//@Disabled
 public class LineCrossAutoMenu extends LinearOpMode {
 
     /* Declare OpMode members. */

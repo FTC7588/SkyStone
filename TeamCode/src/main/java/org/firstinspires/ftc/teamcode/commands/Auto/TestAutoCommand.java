@@ -30,14 +30,6 @@ public class TestAutoCommand {
     public void execute() {
         telemetry.addData("no", "");
         telemetry.update();
-
-        driveTrainSubsystem.moveToPosition(30, 0);
-        driveTrainSubsystem.turnWithGyro(180, .5);
-        driveTrainSubsystem.moveToPosition(60, 0);
-        driveTrainSubsystem.moveToPosition(-30, 0);
-        driveTrainSubsystem.turnWithGyro(0, .5);
-        driveTrainSubsystem.moveToPosition(12, 90);
-        driveTrainSubsystem.moveToPosition(12, 180);
     }
 
     public void stop() {
