@@ -11,6 +11,8 @@ public class GrabberCommand {
     GrabberSubsystem grabberSubsystem;
     ShuttleSubsystem shuttleSubsystem;
     IO io;
+    boolean SlowMode = false;
+    boolean buttonIsReleased = true;
 
     public GrabberCommand(Telemetry telem, GrabberSubsystem grabberSubsystem, ShuttleSubsystem shuttleSubsystem, IO io) {
         this.grabberSubsystem = grabberSubsystem;
@@ -26,8 +28,22 @@ public class GrabberCommand {
     }
 
     public void execute() {
+        {
         if (io.grabberToggle()) {
-            grabberSubsystem.toggleGrabber();
+                if (buttonIsReleased) {
+                    buttonIsReleased = false;
+                    if(SlowMode == false) {
+                        SlowMode = true;
+                        grabberSubsystem.toggleGrabber();
+                    } else if(SlowMode == true) {
+                        SlowMode = false;
+                        grabberSubsystem.toggleGrabber();
+                    }
+                }
+
+            } else {
+                buttonIsReleased = true;
+            }
         }
 
         //grabberSubsystem.rotateGrabber(io.rotGrabberPositive());

@@ -11,6 +11,8 @@ public class FoundationMoverCommand {
 
     FoundationMoverSubsystem foundationMoverSubsystem;
     IO io;
+    boolean SlowMode = false;
+    boolean buttonIsReleased = true;
 
     public FoundationMoverCommand(Telemetry telem, FoundationMoverSubsystem foundationMoverSubsystem, IO io) {
         this.foundationMoverSubsystem = foundationMoverSubsystem;
@@ -23,10 +25,26 @@ public class FoundationMoverCommand {
     }
 
     public void execute() {
-       if (io.foundationGrabber()){
-           foundationMoverSubsystem.toggleFoundationGrabber();
-       }
+     //  if (io.foundationGrabber()){
+    //       foundationMoverSubsystem.toggleFoundationGrabber();
+    //   }
+        if(io.foundationGrabber()) {
+            if (buttonIsReleased) {
+                buttonIsReleased = false;
+                if(SlowMode == false) {
+                    SlowMode = true;
+                    foundationMoverSubsystem.toggleFoundationGrabber();
+                } else if(SlowMode == true) {
+                    SlowMode = false;
+                    foundationMoverSubsystem.toggleFoundationGrabber();
+                }
+            }
+
+        } else {
+            buttonIsReleased = true;
+        }
     }
+
 
     public void stop() {
     }

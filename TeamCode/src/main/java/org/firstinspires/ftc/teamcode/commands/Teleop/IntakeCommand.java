@@ -22,11 +22,11 @@ public class IntakeCommand {
 
     public void execute() {
         if (io.intake()) {
-            intakeSubsystem.setpower(1);
+            intakeSubsystem.setpower(.5);
         } else if (io.outTake()) {
-            intakeSubsystem.setpower(-1);
+            intakeSubsystem.setpower(-.5);
         } else {
-            intakeSubsystem.setpower(.1);
+            intakeSubsystem.setpower(-.1);
         }
     }
 

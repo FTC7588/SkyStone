@@ -32,12 +32,12 @@ public class FoundationMoverSubsystem {
         if(toggleFoundationGrabberClosed){
             toggleFoundationGrabberClosed = false;
             hardware.foundationGrabberLeft.setPosition(0);
-            hardware.foundationGrabberRight.setPosition(0);
+            hardware.foundationGrabberRight.setPosition(1);
         }
         else {
             toggleFoundationGrabberClosed = true;
-            hardware.foundationGrabberLeft.setPosition(.5);
-            hardware.foundationGrabberRight.setPosition(.5);
+            hardware.foundationGrabberLeft.setPosition(.9);
+            hardware.foundationGrabberRight.setPosition(.1);
         }
     }
 }
