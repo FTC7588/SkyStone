@@ -1,19 +1,17 @@
 package org.firstinspires.ftc.teamcode.commands.Auto;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.IO;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrainSubsystem;
 
-public class TestAutoCommand {
+public class TestAutoPIDCommand {
 
     DriveTrainSubsystem driveTrainSubsystem;
     IO io;
 
     Telemetry telemetry;
 
-    public TestAutoCommand(Telemetry telem, DriveTrainSubsystem driveTrainSubsystem, IO io) {
+    public TestAutoPIDCommand(Telemetry telem, DriveTrainSubsystem driveTrainSubsystem, IO io) {
         this.driveTrainSubsystem = driveTrainSubsystem;
 
         this.io = io;
@@ -28,8 +26,10 @@ public class TestAutoCommand {
     }
 
     public void execute() {
-        telemetry.addData("no", "");
+        telemetry.addData("test", "");
         telemetry.update();
+
+        driveTrainSubsystem.moveToPositionPID(10, .5);
     }
 
     public void stop() {

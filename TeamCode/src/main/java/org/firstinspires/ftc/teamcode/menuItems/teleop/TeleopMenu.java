@@ -57,6 +57,8 @@ public class TeleopMenu extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        teleopController.firstRun();
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             teleopController.runOpMode();

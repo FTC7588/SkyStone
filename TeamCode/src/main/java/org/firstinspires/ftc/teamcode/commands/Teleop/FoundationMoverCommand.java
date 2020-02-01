@@ -23,10 +23,8 @@ public class FoundationMoverCommand {
     }
 
     public void execute() {
-
        if (io.foundationGrabber()){
            foundationMoverSubsystem.toggleFoundationGrabber();
-
        }
     }
 

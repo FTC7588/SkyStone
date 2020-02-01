@@ -27,40 +27,38 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.control;
+package org.firstinspires.ftc.teamcode.menuItems.autonomous;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.control.AutonomousController;
 
 /**
- * This file controls the timing of Robot.java methods during auto using data from menu classes.
+ * This file illustrates the basic construction of a class to add an item to the driver station menu.
+ *
+ * Copy this file in android studio, then comment out the @Disabled line and change the name and
+ * AutonmousController constructor string to reflect the human and ccde names of your opmode reflectively.
  */
 
-public class TeleopController {
+@Autonomous(name="Test Auto With PID", group="Menu Example")
+@Disabled
+public class TestPIDAutoMenu extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Robot robotController;
+    AutonomousController autonomousController;
 
-    public TeleopController(String callerName, Telemetry telem, Gamepad gamepad1, Gamepad gamepad2, HardwareMap hwmap) {
-        robotController = new Robot(callerName, telem, hwmap, gamepad1, gamepad2);
-    }
-
-    public void initOpMode() {
-        robotController.teleopInit();
-    }
-
-    public void firstRun() {
-        robotController.teleopStart();
-    }
-
+    @Override
     public void runOpMode() {
-        robotController.teleopExecute();
-    }
+        autonomousController = new AutonomousController("Test PID Auto", telemetry, gamepad1, gamepad2, hardwareMap);
 
-    public void stopOpMode() {
-        robotController.teleopEnd();
+        autonomousController.initOpMode();
+
+        waitForStart();
+
+        autonomousController.runOpMode();
+
+        autonomousController.stopOpMode();
     }
 }

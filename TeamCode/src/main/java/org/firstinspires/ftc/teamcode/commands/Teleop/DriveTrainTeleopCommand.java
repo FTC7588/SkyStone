@@ -11,22 +11,28 @@ public class DriveTrainTeleopCommand {
 
     DriveTrainSubsystem driveTrainSubsystem;
     IO io;
+    Telemetry telemetry;
 
     public DriveTrainTeleopCommand(Telemetry telem, DriveTrainSubsystem driveTrainSubsystem, IO io) {
         this.driveTrainSubsystem = driveTrainSubsystem;
+
+        this.telemetry = telem;
 
         this.io = io;
     }
 
     public void init(){
-        driveTrainSubsystem.swerveDrive(0,0,0);
+        driveTrainSubsystem.meccanumDrive(0,0,0);
+
+        driveTrainSubsystem.initGyro();
     }
 
     public void execute() {
-        driveTrainSubsystem.swerveDrive(io.swerveStrafe(), io.swervepower(), io.swerveturn());
+        //driveTrainSubsystem.meccanumDrive(io.meccTurn(), io.meccStrafe(), io.meccPower());
+        driveTrainSubsystem.meccanumDrive(io.meccStrafe(), io.meccPower(), io.meccTurn());
     }
 
     public void stop() {
-        driveTrainSubsystem.swerveDrive(0,0,0);
+        driveTrainSubsystem.meccanumDrive(0,0,0);
     }
 }

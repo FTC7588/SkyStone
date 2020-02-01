@@ -97,7 +97,7 @@ public class SwerveTeleop extends OpMode
         frontLeft = new WheelDrive(swerve.frontLeftTurn, swerve.frontLeftDrive, swerve.frontLeftEncoder);
         frontRight = new WheelDrive(swerve.frontRightTurn, swerve.frontRightDrive, swerve.frontRightEncoder);
 
-        swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight);
+        swerveDrive = new SwerveDrive(backLeft, backRight, frontLeft, frontRight, telemetry);
 
         angles   = swerve.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = swerve.imu.getGravity();

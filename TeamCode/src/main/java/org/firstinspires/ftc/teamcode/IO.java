@@ -12,52 +12,36 @@ public class IO {
         this.gamepad2 = gamepad2;
     }
 
-    public double swervepower() {
-        return gamepad1.left_stick_y;
+    public double meccPower() {
+        return -gamepad1.left_stick_y;
     }
 
-    public double swerveStrafe() {
+    public double meccStrafe() {
         return gamepad1.left_stick_x;
     }
 
-    public double swerveturn() {
+    public double meccTurn() {
         return gamepad1.right_stick_x;
     }
 
     public double shuttlePower() {
-        double power = -gamepad1.right_stick_y;
-
-        return power;
-    }
-
-    public double turn() {
-        double power = gamepad1.left_stick_x;
-
-        return power;
-    }
-
-    public double drive() {
-        double power = -gamepad1.left_stick_y;
+        double power = -gamepad2.right_stick_y;
 
         return power;
     }
 
     public double elevator() {
-        double power = -gamepad2.left_stick_y /2 +.05;
+        double power = -gamepad2.left_stick_y /2 +.01;
 
         return power;
     }
 
     public boolean foundationGrabber() {
-        return gamepad2.b;
+        return gamepad2.x;
     }
 
-    public boolean bigGrabberToggle() {
-        return gamepad1.right_bumper;
-    }
-
-    public boolean smallGrabberToggle() {
-        return gamepad2.y;
+    public boolean grabberToggle() {
+        return gamepad1.a;
     }
 
     public double rotGrabberPositive() {
@@ -66,5 +50,13 @@ public class IO {
 
     public double rotGrabberNegative() {
         return gamepad2.left_trigger;
+    }
+
+    public boolean intake() {
+        return gamepad2.a;
+    }
+
+    public boolean outTake() {
+        return gamepad2.y;
     }
 }

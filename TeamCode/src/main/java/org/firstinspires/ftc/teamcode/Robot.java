@@ -6,18 +6,22 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.Auto.CrosslineAuto;
 import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.CstArray.List;
+import org.firstinspires.ftc.teamcode.commands.Auto.TestAutoPIDCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.DriveTrainTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.ElevatorTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.FoundationMoverCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.GrabberCommand;
 import org.firstinspires.ftc.teamcode.commands.Auto.LeftArcAuto;
 import org.firstinspires.ftc.teamcode.commands.Auto.RightArcAuto;
+import org.firstinspires.ftc.teamcode.commands.Teleop.IntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.Teleop.ShuttleTeleopCommand;
 import org.firstinspires.ftc.teamcode.commands.Auto.TestAutoCommand;
+import org.firstinspires.ftc.teamcode.menuItems.autonomous.TestPIDAutoMenu;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrainSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ElevatorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationMoverSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.GrabberSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ShuttleSubsystem;
 
 public class Robot {
@@ -28,6 +32,7 @@ public class Robot {
     FoundationMoverSubsystem foundationMoverSubsystem;
     GrabberSubsystem grabberSubsystem;
     ShuttleSubsystem shuttleSubsystem;
+    IntakeSubsystem intakeSubsystem;
 
     ShuttleTeleopCommand shuttleTeleopCommand;
     DriveTrainTeleopCommand driveTrainTeleopCommand;
@@ -35,6 +40,8 @@ public class Robot {
     FoundationMoverCommand foundationMoverCommand;
     LeftArcAuto leftArcAuto;
     RightArcAuto rightArcAuto;
+    IntakeCommand intakeCommand;
+    TestAutoPIDCommand testPIDAutoPIDCommand;
 
     TestAutoCommand testAutoCommand;
     CrosslineAuto crosslineAuto;
@@ -61,13 +68,16 @@ public class Robot {
         shuttleSubsystem = new ShuttleSubsystem(telem, hardware);
         foundationMoverSubsystem = new FoundationMoverSubsystem(telem, hardware);
         grabberSubsystem = new GrabberSubsystem(telem, hardware);
+        intakeSubsystem = new IntakeSubsystem(telem, hardware);
 
-        shuttleTeleopCommand = new ShuttleTeleopCommand(telem, shuttleSubsystem, io);
+        shuttleTeleopCommand = new ShuttleTeleopCommand(telem, shuttleSubsystem, elevatorSubsystem, io);
         driveTrainTeleopCommand = new DriveTrainTeleopCommand(telem, driveTrainSubsystem, io);
         elevatorTeleopCommand = new ElevatorTeleopCommand(telem, elevatorSubsystem, io);
         foundationMoverCommand = new FoundationMoverCommand(telem, foundationMoverSubsystem, io);
-        grabberCommand = new GrabberCommand(telem, grabberSubsystem, io);
+        grabberCommand = new GrabberCommand(telem, grabberSubsystem, shuttleSubsystem, io);
+        intakeCommand = new IntakeCommand(telem, intakeSubsystem, io);
 
+        testPIDAutoPIDCommand = new TestAutoPIDCommand(telem, driveTrainSubsystem, io);
         testAutoCommand = new TestAutoCommand(telem, driveTrainSubsystem, io);
         crosslineAuto = new CrosslineAuto(telem, driveTrainSubsystem, io);
 
@@ -84,6 +94,8 @@ public class Robot {
             leftArcAuto.init();
         } else if (programName == "Right Arc Auto") {
             rightArcAuto.init();
+        } else if (programName == "Test PID Auto") {
+            testPIDAutoPIDCommand.init();
         }
     }
 
@@ -97,8 +109,11 @@ public class Robot {
             leftArcAuto.execute();
         } else if (programName == "Right Arc Auto") {
             rightArcAuto.execute();
+        } else if (programName == "Test PID Auto") {
+            testPIDAutoPIDCommand.execute();
         }
     }
+
     public void autoEnd () {
         if (programName == "Test Auto") {
             testAutoCommand.stop();
@@ -108,15 +123,20 @@ public class Robot {
             leftArcAuto.stop();
         } else if (programName == "Right Arc Auto") {
             rightArcAuto.stop();
+        } else if (programName == "Test PID Auto") {
+            testPIDAutoPIDCommand.stop();
         }
     }
 
-    public  void teleopInit() {
+    public  void teleopInit() { }
+
+    public void teleopStart() {
         shuttleTeleopCommand.init();
         driveTrainTeleopCommand.init();
         elevatorTeleopCommand.init();
         foundationMoverCommand.init();
         grabberCommand.init();
+        intakeCommand.init();
     }
 
     // Loops
@@ -126,6 +146,7 @@ public class Robot {
         elevatorTeleopCommand.execute();
         foundationMoverCommand.execute();
         grabberCommand.execute();
+        intakeCommand.execute();
     }
 
     public void teleopEnd() {
@@ -134,7 +155,6 @@ public class Robot {
         elevatorTeleopCommand.stop();
         foundationMoverCommand.stop();
         grabberCommand.stop();
-
+        intakeCommand.execute();
     }
-
 }

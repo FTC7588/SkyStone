@@ -28,16 +28,16 @@ public class FoundationMoverSubsystem {
         hardware.foundationGrabberRight.setPosition(position);
     }
 
-        public void toggleFoundationGrabber() {
-            if(toggleFoundationGrabberClosed){
-                toggleFoundationGrabberClosed = false;
-                hardware.foundationGrabberLeft.setPosition(.5);
-                hardware.foundationGrabberRight.setPosition(0);
-            }
-            else {
-                toggleFoundationGrabberClosed = true;
-                hardware.foundationGrabberLeft.setPosition(1.0);
-                hardware.foundationGrabberRight.setPosition(.5);
-            }
+    public void toggleFoundationGrabber() {
+        if(toggleFoundationGrabberClosed){
+            toggleFoundationGrabberClosed = false;
+            hardware.foundationGrabberLeft.setPosition(0);
+            hardware.foundationGrabberRight.setPosition(0);
+        }
+        else {
+            toggleFoundationGrabberClosed = true;
+            hardware.foundationGrabberLeft.setPosition(.5);
+            hardware.foundationGrabberRight.setPosition(.5);
+        }
     }
 }

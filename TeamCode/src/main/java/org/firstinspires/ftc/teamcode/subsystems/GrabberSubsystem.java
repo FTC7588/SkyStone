@@ -16,7 +16,7 @@ public class GrabberSubsystem {
     boolean grabberClosed =true;
 
     double          clawOffset      = 0;                       // Servo mid position
-    final double    CLAW_SPEED      = 0.02 ;                   // sets rate to move servo
+    final double    CLAW_SPEED      = 0.5 ;                   // sets rate to move servo
     final double    MID_SERVO       = .5;
 
     public GrabberSubsystem(Telemetry telem, Hardware hardware) {
@@ -32,25 +32,24 @@ public class GrabberSubsystem {
 
         }
         else {
-            hardware.grabber.setPosition(0);
+            hardware.grabber.setPosition(.65);
             grabberClosed = true;
         }
     }
-    public void setGrabberPosition (int grabberPosition) {
+    public void setGrabberPosition (double grabberPosition) {
         hardware.grabber.setPosition(grabberPosition);
     }
 
     public void rotateGrabber(double amount) {
         // Use gamepad left & right Bumpers to open and close the claw
 
-        amount = amount*CLAW_SPEED;
+        //amount = amount*CLAW_SPEED;
 
-        clawOffset += amount;
+        //clawOffset += amount;
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
-        clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        hardware.rotGrabber.setPosition(MID_SERVO + clawOffset);
-        hardware.rotGrabber.setPosition(MID_SERVO - clawOffset);
+        //clawOffset = Range.clip(clawOffset, -0.5, 0.5);
+        hardware.rotGrabber.setPosition(.5 + amount);
     }
 
 }
