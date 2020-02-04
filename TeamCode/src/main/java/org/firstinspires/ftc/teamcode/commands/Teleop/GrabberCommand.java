@@ -21,43 +21,35 @@ public class GrabberCommand {
         this.io = io;
 
     }
-    public void init(){
+
+    public void init() {
         grabberSubsystem.setGrabberPosition(.65);
 
         //grabberSubsystem.rotateGrabber(0);
     }
 
     public void execute() {
-        {
         if (io.grabberToggle()) {
-                if (buttonIsReleased) {
-                    buttonIsReleased = false;
-                    if(SlowMode == false) {
-                        SlowMode = true;
-                        grabberSubsystem.toggleGrabber();
-                    } else if(SlowMode == true) {
-                        SlowMode = false;
-                        grabberSubsystem.toggleGrabber();
-                    }
+            if (buttonIsReleased) {
+                buttonIsReleased = false;
+                if (SlowMode == false) {
+                    SlowMode = true;
+                    grabberSubsystem.toggleGrabber();
+                } else if (SlowMode == true) {
+                    SlowMode = false;
+                    grabberSubsystem.toggleGrabber();
                 }
-
-            } else {
-                buttonIsReleased = true;
-            }
-        }
-
-        //grabberSubsystem.rotateGrabber(io.rotGrabberPositive());
-
-        if (shuttleSubsystem.getCurrentHieght() >= 12 || true) {
-            if (io.rotGrabberNegative() >= .001) {
-                grabberSubsystem.rotateGrabber(io.rotGrabberNegative());
-            } else if (io.rotGrabberPositive() >= .001) {
-                grabberSubsystem.rotateGrabber(-io.rotGrabberPositive());
-            } else {
-                grabberSubsystem.rotateGrabber(0);
             }
         } else {
-            grabberSubsystem.setGrabberPosition(.5);
+            buttonIsReleased = true;
+        }
+
+        if(io.rotGrabberNegative()>=.001){
+            grabberSubsystem.rotateGrabber(io.rotGrabberNegative());
+        } else if(io.rotGrabberPositive()>=.001){
+            grabberSubsystem.rotateGrabber(-io.rotGrabberPositive());
+        } else{
+            grabberSubsystem.rotateGrabber(0);
         }
     }
 
