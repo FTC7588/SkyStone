@@ -32,7 +32,7 @@ public class GrabberSubsystem {
 
         }
         else {
-            hardware.grabber.setPosition(.7);
+            hardware.grabber.setPosition(.4);
             grabberClosed = true;
         }
     }
